@@ -1,6 +1,6 @@
 # Diretório de compilação
 /target/
-
+/node_modules/
 # Configurações específicas do NetBeans
 /nbproject/private/
 /nbbuild/

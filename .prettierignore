@@ -1,0 +1,30 @@
+# Diretório de build do Maven
+target/
+
+# Configurações e arquivos do NetBeans
+nbproject/
+build/
+dist/
+
+# Arquivos de configuração que não precisam ser formatados
+pom.xml
+
+# Arquivos binários
+*.jar
+*.war
+
+# Logs e arquivos de backup
+*.log
+*.tmp
+*.bak
+
+# Diretórios de dependências
+node_modules/
+vendor/
+
+# Arquivos que já foram minificados
+*.min.js
+*.min.css
+
+# Outros arquivos que não precisam de formatação
+*.lock

@@ -1,0 +1,35 @@
+# EditorConfig é compatível com muitos editores e IDEs e ajuda a manter
+# um estilo de codificação consistente para diferentes editores.
+
+# Define o estilo padrão para todos os arquivos
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Arquivos de configuração do Maven (pom.xml)
+# [*.xml]
+# indent_style = space
+# indent_size = 2
+
+# Arquivos JSON
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Arquivos YAML
+[*.yml, *.yaml]
+indent_style = space
+indent_size = 2
+
+# Arquivos Markdown
+[*.md]
+trim_trailing_whitespace = false
+
+# Arquivos Java
+[*.java]
+indent_style = space
+indent_size = 4

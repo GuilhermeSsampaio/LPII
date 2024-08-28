@@ -11,28 +11,25 @@ public class ControladorCadastroMaestros {
 
     public String inserirMaestro(Maestro maestro) {
         Maestro maestro1 = Maestro.buscarMaestro(maestro.getNome());
-        if (maestro1 == null) {
+        if (maestro1 == null)
             return Maestro.inserirMaestro(maestro);
-        } else {
+        else
             return "Maestro já cadastrado";
-        }
     }
 
     public String alterarMaestro(Maestro maestro) {
         Maestro maestro1 = Maestro.buscarMaestro(maestro.getNome());
-        if (maestro1 != null) {
+        if (maestro1 != null)
             return Maestro.alterarMaestro(maestro);
-        } else {
+        else
             return "Maestro não cadastrado";
-        }
     }
 
     public String removerMaestro(String nome) {
         Maestro maestro1 = Maestro.buscarMaestro(nome);
-        if (maestro1 != null) {
+        if (maestro1 != null)
             return Maestro.removerMaestro(nome);
-        } else {
+        else
             return "Maestro não cadastrado";
-        }
     }
 }
