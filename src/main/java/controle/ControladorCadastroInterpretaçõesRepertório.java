@@ -14,20 +14,22 @@ public class ControladorCadastroInterpretaçõesRepertório {
 
     public String removerInterpretação(int sequencial) {
         boolean existe_interpretação = Interpretação.existeInterpretação(sequencial);
-        if (existe_interpretação)
+        if (existe_interpretação) {
             return Interpretação.removerInterpretação(sequencial);
-        else
+        } else {
             return "Interpretação não cadastrada";
+        }
 
     }
 
     public String inserirInterpretação(Interpretação interpretação) {
         boolean existe_interpretação = Interpretação.existeInterpretação(interpretação.getRepertório().getSequencial(),
                 interpretação.getPeçaMusical().getTitulo());
-        if (!existe_interpretação)
+        if (!existe_interpretação) {
             return Interpretação.inserirInterpretação(interpretação);
-        else
+        } else {
             return "Sequencial de interpretação já cadastrado";
+        }
     }
 
 }

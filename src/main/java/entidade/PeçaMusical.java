@@ -6,10 +6,6 @@ import java.util.ArrayList;
 
 import persistência.BD;
 
-/**
- *
- * @author guilh
- */
 public class PeçaMusical {
 
     public enum Gênero {
