@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidade;
 
 import java.sql.PreparedStatement;
@@ -11,94 +7,89 @@ import java.util.ArrayList;
 
 import persistência.BD;
 
-/**
- *
- * @author guilh
- */
 public class Repertório {
+
     private int sequencial;
     private String nome;
     private String data_montagem;
     private String descrição;
-    
-    public Repertório(int sequencial, String nome, String data_montagem, String descrição){
+
+    public Repertório(int sequencial, String nome, String data_montagem, String descrição) {
         this.sequencial = sequencial;
         this.nome = nome;
         this.data_montagem = data_montagem;
         this.descrição = descrição;
     }
 
-    public Repertório(int sequencial, String nome){
+    public Repertório(int sequencial, String nome) {
         this.sequencial = sequencial;
         this.nome = nome;
     }
-    
-    public static int últimoSequencial(){
+
+    public static int últimoSequencial() {
         String sql = "SELECT MAX(sequencial) FROM Repertórios";
         ResultSet lista_resultados = null;
         int sequencial = 0;
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
+            while (lista_resultados.next()) {
                 sequencial = lista_resultados.getInt(1);
             }
             lista_resultados.close();
             comando.close();
-        }catch(SQLException exceção_sql){
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
         }
         return sequencial;
     }
-    
-    public static Repertório[] getVisões(){
+
+    public static Repertório[] getVisões() {
         String sql = "SELECT sequencial, nome FROM Repertórios";
         ResultSet lista_resultados = null;
         ArrayList<Repertório> visões = new ArrayList();
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
+            while (lista_resultados.next()) {
                 visões.add(new Repertório(lista_resultados.getInt("Sequencial"), lista_resultados.getString("nome")));
             }
             lista_resultados.close();
             comando.close();
-        }catch(SQLException exceção_sql){
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
         }
         return visões.toArray(new Repertório[visões.size()]);
     }
 
-    
-    
-    public static Boolean existeRepertórioMesmosAtributos(Repertório repertório){
+    public static Boolean existeRepertórioMesmosAtributos(Repertório repertório) {
         String sql = "SELECT COUNT(Sequencial) FROM Repertórios WHERE nome = ? AND data_montagem = ? AND descrição = ?";
         ResultSet lista_resultados = null;
         int n_repertórios_mesmos_atributos = 0;
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, repertório.nome);
             comando.setString(2, repertório.data_montagem);
             comando.setString(3, repertório.descrição);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
+            while (lista_resultados.next()) {
                 n_repertórios_mesmos_atributos = lista_resultados.getInt(1);
             }
             lista_resultados.close();
             comando.close();
-        }catch(SQLException exceção_sql){
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
         }
-        if(n_repertórios_mesmos_atributos > 0){
+        if (n_repertórios_mesmos_atributos > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static String inserirRepertório(Repertório repertório){
+    public static String inserirRepertório(Repertório repertório) {
         String sql = "INSERT INTO Repertórios (sequencial, nome, data_montagem, descrição) VALUES (?, ?, ?, ?)";
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setInt(1, repertório.getSequencial());
             comando.setString(2, repertório.getNome());
@@ -107,15 +98,15 @@ public class Repertório {
             comando.execute();
             comando.close();
             return null;
-        }catch(SQLException exceção){
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na inserção do repertório no BD";
         }
     }
 
-    public static String alterarRepertório(Repertório repertório){
+    public static String alterarRepertório(Repertório repertório) {
         String sql = "UPDATE Repertórios SET nome = ?, data_montagem = ?, descrição = ? WHERE sequencial = ?";
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, repertório.getNome());
             comando.setString(2, repertório.getData_montagem());
@@ -124,102 +115,99 @@ public class Repertório {
             comando.executeUpdate();
             comando.close();
             return null;
-        }catch(SQLException exceção){
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na alteração do repertório no BD";
         }
     }
+
     //N TEM NO TUTORIAL
-   public static String removerRepertório(int sequencial) {
-    String sqlDeleteInterpretacoes = "DELETE FROM Interpretações WHERE RepertórioId = ?";
-    String sqlDeleteRepertorio = "DELETE FROM Repertórios WHERE sequencial = ?";
-    try {
-        PreparedStatement comando = BD.conexão.prepareStatement(sqlDeleteInterpretacoes);
-        comando.setInt(1, sequencial);
-        comando.executeUpdate();
-        comando.close();
+    public static String removerRepertório(int sequencial) {
+        String sqlDeleteInterpretacoes = "DELETE FROM Interpretações WHERE RepertórioId = ?";
+        String sqlDeleteRepertorio = "DELETE FROM Repertórios WHERE sequencial = ?";
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sqlDeleteInterpretacoes);
+            comando.setInt(1, sequencial);
+            comando.executeUpdate();
+            comando.close();
 
-        comando = BD.conexão.prepareStatement(sqlDeleteRepertorio);
-        comando.setInt(1, sequencial);
-        comando.executeUpdate();
-        comando.close();
+            comando = BD.conexão.prepareStatement(sqlDeleteRepertorio);
+            comando.setInt(1, sequencial);
+            comando.executeUpdate();
+            comando.close();
 
-        return null;
-    } catch (SQLException exceção) {
-        exceção.printStackTrace();
-        return "Erro na exclusão do repertório e suas interpretações no BD";
+            return null;
+        } catch (SQLException exceção) {
+            exceção.printStackTrace();
+            return "Erro na exclusão do repertório e suas interpretações no BD";
+        }
     }
-}
 
-
-    public static Repertório buscarRepertório(int sequencial){
+    public static Repertório buscarRepertório(int sequencial) {
         String sql = "SELECT * FROM Repertórios WHERE sequencial = ?";
         ResultSet lista_resultados = null;
         Repertório repertório = null;
-        
-        try{
+
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setInt(1, sequencial);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
-                repertório = new Repertório(lista_resultados.getInt("sequencial"), 
-                lista_resultados.getString("nome"), 
-                lista_resultados.getString("data_montagem"),
-                 lista_resultados.getString("descrição"));
+            while (lista_resultados.next()) {
+                repertório = new Repertório(lista_resultados.getInt("sequencial"),
+                        lista_resultados.getString("nome"),
+                        lista_resultados.getString("data_montagem"),
+                        lista_resultados.getString("descrição"));
             }
             lista_resultados.close();
             comando.close();
-        }catch(SQLException exceção){
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             repertório = null;
         }
         return repertório;
     }
 
-    public Repertório getVisão(){
+    public Repertório getVisão() {
         return new Repertório(sequencial, nome);
     }
 
-    public String toString(){
-    return "[" + getSequencial() + "] " + getNome();
+    public String toString() {
+        return "[" + getSequencial() + "] " + getNome();
     }
 
-    public int getSequencial(){
+    public int getSequencial() {
         return sequencial;
     }
 
-    public void setSequencial(int sequencial){
+    public void setSequencial(int sequencial) {
         this.sequencial = sequencial;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getData_montagem(){
+    public String getData_montagem() {
         return data_montagem;
     }
 
-    public void setData_montagem(String data_montagem){
+    public void setData_montagem(String data_montagem) {
         this.data_montagem = data_montagem;
     }
 
-    public String getDescrição(){
+    public String getDescrição() {
         return descrição;
     }
 
-    public void setDescrição(String descrição){
+    public void setDescrição(String descrição) {
         this.descrição = descrição;
     }
 
-    public String toStringFull(){
-        // return "Repertório{" + ", nome=" + nome + ", data_montagem=" + data_montagem + ", descrição=" + descrição + '}';
+    public String toStringFull() {
         return nome + " - " + data_montagem + " - " + descrição;
     }
 }
-
-

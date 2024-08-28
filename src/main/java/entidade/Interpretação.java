@@ -1,40 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidade;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import persistência.BD;
 
-/**
- *
- * @author guilh
- */
 public class Interpretação {
 
     private int sequencial;
     private Repertório repertório;
     private PeçaMusical peça_musical;
-    
 
     public Interpretação(int sequencial, Repertório repertório, PeçaMusical peça_musical) {
         this.sequencial = sequencial;
         this.repertório = repertório;
         this.peça_musical = peça_musical;
     }
-    
-    public Interpretação(int sequencial){
+
+    public Interpretação(int sequencial) {
         this.sequencial = sequencial;
     }
-    
-    
-    public Interpretação getVisão(){
+
+    public Interpretação getVisão() {
         return new Interpretação(sequencial, repertório, peça_musical);
     }
 
@@ -55,26 +44,26 @@ public class Interpretação {
         }
         return sequencial;
     }
-    
-   public static Interpretação[] getVisões(){
-       String sql = "SELECT sequencial, repertórioId, peçaMusicalId from Interpertações";
-       ResultSet lista_resultados = null;
-       ArrayList<Interpretação> visões = new ArrayList();
-       try{
-           PreparedStatement comando = BD.conexão.prepareStatement(sql);
-           lista_resultados = comando.executeQuery();
-           while(lista_resultados.next()){
-               visões.add(new Interpretação(lista_resultados.getInt("sequencial"),
-                       Repertório.buscarRepertório(lista_resultados.getInt("repertórioId")).getVisão(),
-                       PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId")).getVisão()));
-           }
-           lista_resultados.close();
-           comando.close();
-       }catch(SQLException exceção_sql){
-           exceção_sql.printStackTrace();
-       }
-       return visões.toArray(new Interpretação[visões.size()]);
-   }
+
+    public static Interpretação[] getVisões() {
+        String sql = "SELECT sequencial, repertórioId, peçaMusicalId from Interpertações";
+        ResultSet lista_resultados = null;
+        ArrayList<Interpretação> visões = new ArrayList();
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            lista_resultados = comando.executeQuery();
+            while (lista_resultados.next()) {
+                visões.add(new Interpretação(lista_resultados.getInt("sequencial"),
+                        Repertório.buscarRepertório(lista_resultados.getInt("repertórioId")).getVisão(),
+                        PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId")).getVisão()));
+            }
+            lista_resultados.close();
+            comando.close();
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+        }
+        return visões.toArray(new Interpretação[visões.size()]);
+    }
 
     public static boolean existeInterpretação(int chave_repertório, String chave_peça_musical) {
         String sql = "SELECT Sequencial from Interpretações WHERE RepertórioId = ? AND PeçaMusicalId = ?";

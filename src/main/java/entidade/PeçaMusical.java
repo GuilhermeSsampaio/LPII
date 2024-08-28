@@ -1,6 +1,5 @@
 package entidade;
 
-import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -156,15 +155,16 @@ public class PeçaMusical {
     public String getTom() {
         return tom;
     }
-    
+
     public void setTom(String tom) {
         this.tom = tom;
     }
+
     public Gênero getGênero() {
         return genero;
     }
 
     public String toString() {
-        return titulo + " ["+tom+"]";
+        return titulo + " [" + tom + "]";
     }
 }

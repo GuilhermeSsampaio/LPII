@@ -133,7 +133,7 @@ public class Maestro {
     public int getAnos_experiencia() {
         return anos_experiencia;
     }
-    
+
     public void setAnosExperiencia(int anos_experiencia) {
         this.anos_experiencia = anos_experiencia;
     }
@@ -151,6 +151,6 @@ public class Maestro {
     }
 
     public String toString() {
-        return nome+ " [anos de experiência: "+anos_experiencia+"]"; // Retorna o nome do maestro para exibição no ComboBox
+        return nome + " [anos de experiência: " + anos_experiencia + "]"; // Retorna o nome do maestro para exibição no ComboBox
     }
 }
