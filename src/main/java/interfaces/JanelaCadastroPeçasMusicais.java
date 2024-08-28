@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import javax.swing.DefaultComboBoxModel;
@@ -11,15 +7,8 @@ import controle.ControladorCadastroPeçasMusicais;
 import entidade.PeçaMusical;
 import entidade.PeçaMusical.Gênero;
 
-/**
- *
- * @author guilh
- */
 public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaCadastroPeçasMusicais
-     */
     public static Gênero converteStringParaGênero(String genero_str) {
         switch (genero_str) {
             case "clássico":
@@ -66,17 +55,21 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         gêneroButtonGroup.clearSelection();
         tomTextField.setText("");
     }
-    
-    private void selecionarGêneroRadioButton(int índice_gênero){
-        switch(índice_gênero){
-            case 0: rockRadioButton.setSelected(true);
-            break;
-            case 1: clássicoRadioButton.setSelected(true);
-            break;
-            case 2: popRadioButton.setSelected(true);
-            break;
-            case 3: sambaRadioButton.setSelected(true);
-            break;
+
+    private void selecionarGêneroRadioButton(int índice_gênero) {
+        switch (índice_gênero) {
+            case 0:
+                rockRadioButton.setSelected(true);
+                break;
+            case 1:
+                clássicoRadioButton.setSelected(true);
+                break;
+            case 2:
+                popRadioButton.setSelected(true);
+                break;
+            case 3:
+                sambaRadioButton.setSelected(true);
+                break;
         }
     }
 
@@ -109,7 +102,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         Gênero gênero = null;
         if (gêneroButtonGroup.getSelection() != null) {
             gênero = Gênero.values()[gêneroButtonGroup.getSelection().getMnemonic()];
-        }else{
+        } else {
             return null;
         }
         String duracao_str = duracaoTextField.getText();
@@ -124,7 +117,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         return new PeçaMusical(titulo, compositor, duracao, tom, gênero);
     }
 
-      private void atualizarComboBox() {
+    private void atualizarComboBox() {
         peças_musicais_cadastradas = PeçaMusical.getVisões();
         peças_musicais_cadastradasComboBox.setModel(new DefaultComboBoxModel(peças_musicais_cadastradas));
     }
@@ -238,11 +231,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
         tomTextField.setColumns(50);
         tomTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        tomTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tomTextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -269,11 +257,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
         compositorTextField.setColumns(50);
         compositorTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        compositorTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                compositorTextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -287,11 +270,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
         duracaoTextField.setColumns(50);
         duracaoTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        duracaoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                duracaoTextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
@@ -482,18 +460,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     private void peças_musicais_cadastradasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peças_musicais_cadastradasComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_peças_musicais_cadastradasComboBoxActionPerformed
-
-    private void tomTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tomTextFieldActionPerformed
-
-    private void compositorTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compositorTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_compositorTextFieldActionPerformed
-
-    private void duracaoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duracaoTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_duracaoTextFieldActionPerformed
 
     private void rockRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rockRadioButtonActionPerformed
         // TODO add your handling code here:

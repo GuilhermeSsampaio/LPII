@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import controle.ControladorCadastroInterpretaçõesRepertório;
@@ -13,18 +9,12 @@ import entidade.Repertório;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author guilh
- */
 public class JanelaCadastroRepertórios extends javax.swing.JFrame {
+
     ControladorCadastroRepertórios controlador;
     Repertório repertórios_cadastrados[];
     DefaultListModel modelo_interpretações_repertório;
 
-    /**
-     * Creates new form JanelaCadastroRepertorios
-     */
     public JanelaCadastroRepertórios(ControladorCadastroRepertórios controlador) {
         this.controlador = controlador;
         repertórios_cadastrados = Repertório.getVisões();
@@ -44,8 +34,9 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
     private Repertório obtemRepertórioInformado() {
         String sequencial_str = sequencialTextField.getText();
         int sequencial = 0;
-        if (!sequencial_str.isEmpty())
+        if (!sequencial_str.isEmpty()) {
             sequencial = Integer.parseInt(sequencial_str);
+        }
         String nome = nomeTextField.getText();
         if (nome.isEmpty()) {
             return null;
@@ -78,16 +69,20 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         return null;
     }
 
-    private void inicializarListaInterpretaçõesRepertório(){
-        modelo_interpretações_repertório = (DefaultListModel)peças_musicaisList.getModel();
+    private void inicializarListaInterpretaçõesRepertório() {
+        modelo_interpretações_repertório = (DefaultListModel) peças_musicaisList.getModel();
         Interpretação[] visões = Interpretação.getVisões();
-        for(Interpretação visão : visões) modelo_interpretações_repertório.addElement(visão);
+        for (Interpretação visão : visões) {
+            modelo_interpretações_repertório.addElement(visão);
+        }
     }
 
-    public void atualizarListaInterpretaçõesRepertório(int sequencial){
+    public void atualizarListaInterpretaçõesRepertório(int sequencial) {
         modelo_interpretações_repertório.clear();
         Interpretação[] interpretações_repertório = Interpretação.buscarInterpretaçõesRepertório(sequencial);
-        for(Interpretação interpretação : interpretações_repertório) modelo_interpretações_repertório.addElement(interpretação);
+        for (Interpretação interpretação : interpretações_repertório) {
+            modelo_interpretações_repertório.addElement(interpretação);
+        }
     }
 
     /**
@@ -324,9 +319,13 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         // TODO add your handling code here:
         String sequencial_str = sequencialTextField.getText();
         int sequencial = 0;
-        if(!sequencial_str.isEmpty()) sequencial = Integer.parseInt(sequencial_str);
-        if(sequencial > 0) new ControladorCadastroInterpretaçõesRepertório(this, sequencial);
-        else informarErro("Nenhum repertório selecionado");
+        if (!sequencial_str.isEmpty()) {
+            sequencial = Integer.parseInt(sequencial_str);
+        }
+        if (sequencial > 0)
+            new ControladorCadastroInterpretaçõesRepertório(this, sequencial);
+        else
+            informarErro("Nenhum repertório selecionado");
     }//GEN-LAST:event_cadastrarInterpretações
 
     private void limparCampos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCampos
@@ -353,8 +352,10 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
             Repertório visão = repertório.getVisão();
             repertórios_cadastradosComboBox.addItem(visão);
             repertórios_cadastradosComboBox.setSelectedItem(visão);
-            sequencialTextField.setText(""+sequencial);
-        }else informarErro(mensagem_erro);
+            sequencialTextField.setText("" + sequencial);
+        } else {
+            informarErro(mensagem_erro);
+        }
     }// GEN-LAST:event_inserirRepertório
 
     private void consultarRepertório(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarRepertório
@@ -371,14 +372,15 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         } else {
             mensagem_erro = "Nenhum repertório selecionado";
         }
-        if(mensagem_erro == null){
+        if (mensagem_erro == null) {
             sequencialTextField.setText(sequencial + "");
             nomeTextField.setText(repertório.getNome());
             data_montagemTextField.setText(repertório.getData_montagem());
             descriçãoTextArea.setText(repertório.getDescrição());
             atualizarListaInterpretaçõesRepertório(sequencial);
-        }else
+        } else {
             informarErro(mensagem_erro);
+        }
 
     }// GEN-LAST:event_consultarRepertório
 
@@ -393,10 +395,11 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         }
         if (mensagem_erro == null) {
             Repertório visão = getVisãoAlterada(repertório.getSequencial());
-            if(visão != null)
+            if (visão != null) {
                 visão.setNome(repertório.getNome());
-                repertórios_cadastradosComboBox.updateUI();
-                repertórios_cadastradosComboBox.setSelectedItem(visão);
+            }
+            repertórios_cadastradosComboBox.updateUI();
+            repertórios_cadastradosComboBox.setSelectedItem(visão);
         } else {
             informarErro(mensagem_erro);
         }
@@ -405,17 +408,18 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
     private void removerRepertório(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removerRepertório
         Repertório visão = (Repertório) repertórios_cadastradosComboBox.getSelectedItem();
         String mensagem_erro = null;
-        if(visão != null){
+        if (visão != null) {
             mensagem_erro = controlador.removerRepertório(visão.getSequencial());
             informarSucesso("Repertório removido com sucesso");
-        }
-        else{
+        } else {
             mensagem_erro = "Nenhum repertório selecionado";
         }
-        if(mensagem_erro == null){
+        if (mensagem_erro == null) {
             repertórios_cadastradosComboBox.removeItem(visão);
             limparCampos();
-        }else informarErro(mensagem_erro);
+        } else {
+            informarErro(mensagem_erro);
+        }
     }// GEN-LAST:event_removerRepertório
 
     /**

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import javax.swing.JOptionPane;
@@ -10,15 +6,8 @@ import controle.ControladorCadastroMaestros;
 import controle.ControladorCadastroPeçasMusicais;
 import controle.ControladorCadastroRepertórios;
 
-/**
- *
- * @author guilh
- */
 public class JanelaMontagemOrquestra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaMontagemOrquestra
-     */
     public JanelaMontagemOrquestra() {
         BD.criaConexão();
         initComponents();
@@ -151,12 +140,10 @@ public class JanelaMontagemOrquestra extends javax.swing.JFrame {
     }//GEN-LAST:event_pesquisarApresentações
 
     private void cadastrarPeçaMusical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPeçaMusical
-        // TODO add your handling code here:
         new ControladorCadastroPeçasMusicais();
     }//GEN-LAST:event_cadastrarPeçaMusical
 
     private void cadastrarRepertório(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarRepertório
-        // TODO add your handling code here:
         new ControladorCadastroRepertórios();
     }//GEN-LAST:event_cadastrarRepertório
 

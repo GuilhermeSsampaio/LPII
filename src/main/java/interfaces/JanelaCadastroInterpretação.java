@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import controle.ControladorCadastroInterpretaçõesRepertório;
@@ -15,15 +11,8 @@ import javax.swing.JOptionPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- *
- * @author guilh
- */
 public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaCadastroInterpretação
-     */
     ControladorCadastroInterpretaçõesRepertório controlador;
     JanelaCadastroRepertórios janela_mãe;
     int sequencial_repertório;
@@ -51,7 +40,7 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
     private void atualizarTítuloRepertório() {
         Repertório repertório = Repertório.buscarRepertório(sequencial_repertório);
-        repertórioLabel.setText("Repertório: "+repertório.getNome());
+        repertórioLabel.setText("Repertório: " + repertório.getNome());
 
     }
 
@@ -215,15 +204,22 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
     }
 
     // GEN-LAST:event_inserirInterpretação
-
     private void removerInterpretação(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removerInterpretação
         Interpretação interpretação = (Interpretação) peças_musicais_repertorioList.getSelectedValue();
         String mensagem_erro = null;
-        if(interpretação != null) mensagem_erro = controlador.removerInterpretação(interpretação.getSequencial());
-        if(mensagem_erro == null) modelo_lista_interpretações.removeElement(interpretação);
-        else mensagem_erro = "Nenhuma peça foi selecionada";
-        if(mensagem_erro == null) modelo_lista_interpretações.removeElement(interpretação);
-        else informarErro(mensagem_erro);
+        if (interpretação != null) {
+            mensagem_erro = controlador.removerInterpretação(interpretação.getSequencial());
+        }
+        if (mensagem_erro == null) {
+            modelo_lista_interpretações.removeElement(interpretação);
+        } else {
+            mensagem_erro = "Nenhuma peça foi selecionada";
+        }
+        if (mensagem_erro == null) {
+            modelo_lista_interpretações.removeElement(interpretação);
+        } else {
+            informarErro(mensagem_erro);
+        }
     }// GEN-LAST:event_removerInterpretação
 
     /**

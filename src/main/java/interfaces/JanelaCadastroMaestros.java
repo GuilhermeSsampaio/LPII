@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import controle.ControladorCadastroMaestros;
@@ -9,15 +5,8 @@ import entidade.Maestro;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author guilh
- */
 public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaCadastroMaestro
-     */
     ControladorCadastroMaestros controlador;
     Maestro[] maestros_cadastrados;
 
@@ -103,7 +92,6 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Maestros");
-        setPreferredSize(new java.awt.Dimension(677, 331));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         nomeLabel.setText("Nome: ");
@@ -116,11 +104,6 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
         nomeTextField.setColumns(50);
         nomeTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        nomeTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeTextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -275,10 +258,8 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
             anos_experienciaTextField.setText(Integer.toString(maestro.getAnos_experiencia()));
             estilo_regenciaTextField.setText(maestro.getEstilo_regencia());
             estrangeiroCheckBox.setSelected(maestro.isEstrangeiro());
-        } else {
+        } else
             informarErro(mensagem_erro);
-        }
-
     }//GEN-LAST:event_consultarMaestro
 
     private void limparCampos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCampos
@@ -317,6 +298,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         } else {
             mensagem_erro = "Algum atributo do maestro não foi informado";
         }
+
         if (mensagem_erro == null) {
             Maestro visão = getVisãoAlterada(maestro.getNome());
             if (visão != null) {
@@ -338,6 +320,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         } else {
             mensagem_erro = "Nenhum maestro selecionado";
         }
+
         if (mensagem_erro == null) {
             maestros_cadastradosComboBox.removeItem(visão);
             limparCampos();
@@ -345,14 +328,9 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
             informarErro(mensagem_erro);
     }//GEN-LAST:event_removerMaestro
 
-    private void nomeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeTextFieldActionPerformed
-
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LimparButton;
