@@ -113,10 +113,6 @@ public class Interpretação {
             comando.setString(3, interpretação.peça_musical.getTitulo());
             comando.executeUpdate();
             comando.close();
-            // System.out.println("seq int"+interpretação.getSequencial());
-            // System.out.println("sq rep"+interpretação.repertório.getSequencial());
-            // System.out.println("seq peçca"+interpretação.peça_musical.getTitulo());
-            
         } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
             return "Erro ao adicionar interpretação";

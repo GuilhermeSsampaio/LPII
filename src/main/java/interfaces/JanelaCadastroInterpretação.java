@@ -8,8 +8,6 @@ import javax.swing.DefaultComboBoxModel;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
@@ -28,14 +26,6 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         initComponents();
         atualizarTítuloRepertório();
         atualizarListaInterpretaçõesRepertório();
-
-        // Adiciona um WindowListener para capturar o evento de fechamento da janela
-        // this.addWindowListener(new WindowAdapter() {
-        //     @Override
-        //     public void windowClosing(WindowEvent e) {
-        //         janela_mãe.atualizarListaInterpretaçõesRepertório(sequencial_repertório);
-        //     }
-        // });
     }
 
     private void atualizarTítuloRepertório() {

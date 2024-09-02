@@ -154,7 +154,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         alterarButton = new javax.swing.JButton();
         removerButton = new javax.swing.JButton();
         limparButton = new javax.swing.JButton();
-        gêneroComboBox = new javax.swing.JComboBox<>();
+        gêneroComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Peças");
@@ -428,7 +428,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     private javax.swing.JTextField duracaoTextField;
     private javax.swing.JLabel generoLabel;
     private javax.swing.ButtonGroup gêneroButtonGroup;
-    private javax.swing.JComboBox<String> gêneroComboBox;
+    private javax.swing.JComboBox gêneroComboBox;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton limparButton;
     private javax.swing.JComboBox peças_musicais_cadastradasComboBox;

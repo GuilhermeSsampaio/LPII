@@ -131,18 +131,17 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(33, 112, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(31, 112, 0, 0);
         getContentPane().add(repertóriosCadastrados, gridBagConstraints);
 
         repertórios_cadastradosComboBox.setModel(new DefaultComboBoxModel(repertórios_cadastrados));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 139;
+        gridBagConstraints.ipadx = 134;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(28, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(26, 12, 0, 0);
         getContentPane().add(repertórios_cadastradosComboBox, gridBagConstraints);
 
         sequencialLabel.setText("Identificador Sequencial:");
@@ -159,9 +158,8 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 51;
+        gridBagConstraints.ipadx = 191;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
         getContentPane().add(sequencialTextField, gridBagConstraints);
@@ -180,7 +178,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 51;
+        gridBagConstraints.ipadx = 191;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
         getContentPane().add(nomeTextField, gridBagConstraints);
@@ -201,7 +199,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 51;
+        gridBagConstraints.ipadx = 191;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         getContentPane().add(data_montagemTextField, gridBagConstraints);
@@ -221,7 +219,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 22, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 22, 0, 0);
         getContentPane().add(peças_musicaisLabel, gridBagConstraints);
 
         inserirButton.setText("Inserir");
@@ -275,11 +273,11 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 37;
-        gridBagConstraints.ipady = 39;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.ipady = 16;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 6, 28);
+        gridBagConstraints.insets = new java.awt.Insets(18, 12, 18, 0);
         getContentPane().add(comandosPanel, gridBagConstraints);
 
         peças_musicaisList.setModel(new DefaultListModel());
@@ -290,15 +288,15 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 333;
-        gridBagConstraints.ipady = 44;
+        gridBagConstraints.ipadx = 346;
+        gridBagConstraints.ipady = 22;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(9, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         getContentPane().add(peças_musicaisScrollPane, gridBagConstraints);
 
         descriçãoTextArea.setColumns(20);
@@ -308,11 +306,11 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 333;
-        gridBagConstraints.ipady = 16;
+        gridBagConstraints.ipadx = 346;
+        gridBagConstraints.ipady = 53;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
