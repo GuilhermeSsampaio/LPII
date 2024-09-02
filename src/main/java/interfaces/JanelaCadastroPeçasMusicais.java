@@ -13,24 +13,24 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         switch (genero_str) {
             case "clássico":
                 return Gênero.clássico;
-            // case "romântico":
-            //     return Gênero.romântico;
-            // case "jazz":
-            //     return Gênero.jazz;
+            case "romântico":
+                return Gênero.romântico;
+            case "jazz":
+                return Gênero.jazz;
             case "rock":
                 return Gênero.rock;
             case "pop":
                 return Gênero.pop;
-            // case "reggae":
-            //     return Gênero.reggae;
-            // case "blues":
-            //     return Gênero.blues;
-            // case "country":
-            //     return Gênero.country;
-            // case "barroco":
-            //     return Gênero.barroco;
-            // case "modernismo":
-            //     return Gênero.modernismo;
+            case "reggae":
+                return Gênero.reggae;
+            case "blues":
+                return Gênero.blues;
+            case "country":
+                return Gênero.country;
+            case "barroco":
+                return Gênero.barroco;
+            case "modernismo":
+                return Gênero.modernismo;
             case "samba":
                 return Gênero.samba;
             default:
@@ -56,22 +56,22 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         tomTextField.setText("");
     }
 
-    private void selecionarGêneroRadioButton(int índice_gênero) {
-        switch (índice_gênero) {
-            case 0:
-                rockRadioButton.setSelected(true);
-                break;
-            case 1:
-                clássicoRadioButton.setSelected(true);
-                break;
-            case 2:
-                popRadioButton.setSelected(true);
-                break;
-            case 3:
-                sambaRadioButton.setSelected(true);
-                break;
-        }
-    }
+    // private void selecionarGêneroRadioButton(int índice_gênero) {
+    //     switch (índice_gênero) {
+    //         case 0:
+    //             rockRadioButton.setSelected(true);
+    //             break;
+    //         case 1:
+    //             clássicoRadioButton.setSelected(true);
+    //             break;
+    //         case 2:
+    //             popRadioButton.setSelected(true);
+    //             break;
+    //         case 3:
+    //             sambaRadioButton.setSelected(true);
+    //             break;
+    //     }
+    // }
 
     private void informarErro(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -100,11 +100,16 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
             return null;
         }
         Gênero gênero = null;
-        if (gêneroButtonGroup.getSelection() != null) {
-            gênero = Gênero.values()[gêneroButtonGroup.getSelection().getMnemonic()];
-        } else {
-            return null;
+        if(gêneroComboBox.getSelectedItem() != null) {
+            gênero = (Gênero) gêneroComboBox.getSelectedItem();
         }
+        else return null;
+        //)
+        // if (gêneroButtonGroup.getSelection() != null) {
+        //     gênero = Gênero.values()[gêneroButtonGroup.getSelection().getMnemonic()];
+        // } else {
+        //     return null;
+        // }
         String duracao_str = duracaoTextField.getText();
         if (duracao_str.isEmpty()) {
             return null;
@@ -130,7 +135,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         gêneroButtonGroup = new javax.swing.ButtonGroup();
         peças_musicais_cadastradasLabel = new javax.swing.JLabel();
@@ -150,25 +154,13 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         alterarButton = new javax.swing.JButton();
         removerButton = new javax.swing.JButton();
         limparButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        rockRadioButton = new javax.swing.JRadioButton();
-        clássicoRadioButton = new javax.swing.JRadioButton();
-        popRadioButton = new javax.swing.JRadioButton();
-        sambaRadioButton = new javax.swing.JRadioButton();
+        gêneroComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Peças");
         setResizable(false);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         peças_musicais_cadastradasLabel.setText("Peças musicais cadastradas:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(60, 35, 0, 0);
-        getContentPane().add(peças_musicais_cadastradasLabel, gridBagConstraints);
 
         peças_musicais_cadastradasComboBox.setModel(new DefaultComboBoxModel(peças_musicais_cadastradas));
         peças_musicais_cadastradasComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -176,110 +168,28 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 peças_musicais_cadastradasComboBoxActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(55, 14, 0, 0);
-        getContentPane().add(peças_musicais_cadastradasComboBox, gridBagConstraints);
 
         tituloLabel.setText("Título:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(14, 150, 0, 0);
-        getContentPane().add(tituloLabel, gridBagConstraints);
 
         compositorLabel.setText("Compositor:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 120, 0, 0);
-        getContentPane().add(compositorLabel, gridBagConstraints);
 
         generoLabel.setText("Gênero:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.ipady = 26;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 135, 0, 0);
-        getContentPane().add(generoLabel, gridBagConstraints);
 
         duracaoLabel.setText("Duração:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 135, 0, 0);
-        getContentPane().add(duracaoLabel, gridBagConstraints);
 
         tomLabel.setText("Tom:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 155, 0, 0);
-        getContentPane().add(tomLabel, gridBagConstraints);
 
         tomTextField.setColumns(50);
         tomTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 207;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(14, 8, 0, 0);
-        getContentPane().add(tomTextField, gridBagConstraints);
 
         tituloTextField.setColumns(50);
         tituloTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 207;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
-        getContentPane().add(tituloTextField, gridBagConstraints);
 
         compositorTextField.setColumns(50);
         compositorTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 207;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 8, 0, 0);
-        getContentPane().add(compositorTextField, gridBagConstraints);
 
         duracaoTextField.setColumns(50);
         duracaoTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 207;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 8, 0, 0);
-        getContentPane().add(duracaoTextField, gridBagConstraints);
 
         cadastrarButton.setText("Cadastrar");
         cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -321,48 +231,90 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         });
         jPanel1.add(limparButton);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.ipady = 19;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 45, 42, 76);
-        getContentPane().add(jPanel1, gridBagConstraints);
+        gêneroComboBox.setModel(new DefaultComboBoxModel(Gênero.values()));
 
-        gêneroButtonGroup.add(rockRadioButton);
-        rockRadioButton.setText("rock");
-        rockRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rockRadioButtonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rockRadioButton);
-
-        gêneroButtonGroup.add(clássicoRadioButton);
-        clássicoRadioButton.setMnemonic('\u0001');
-        clássicoRadioButton.setText("clássico");
-        jPanel2.add(clássicoRadioButton);
-
-        gêneroButtonGroup.add(popRadioButton);
-        popRadioButton.setMnemonic('\u0002');
-        popRadioButton.setText("pop");
-        jPanel2.add(popRadioButton);
-
-        gêneroButtonGroup.add(sambaRadioButton);
-        sambaRadioButton.setMnemonic('\u0003');
-        sambaRadioButton.setText("samba");
-        jPanel2.add(sambaRadioButton);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipady = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 1, 6, 0);
-        getContentPane().add(jPanel2, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(peças_musicais_cadastradasLabel)
+                .addGap(18, 18, 18)
+                .addComponent(peças_musicais_cadastradasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(tituloLabel)
+                .addGap(1, 1, 1)
+                .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(compositorLabel)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(generoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(duracaoLabel)
+                .addGap(2, 2, 2)
+                .addComponent(duracaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(tomLabel)
+                .addGap(3, 3, 3)
+                .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(peças_musicais_cadastradasLabel))
+                    .addComponent(peças_musicais_cadastradasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(tituloLabel))
+                    .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(compositorLabel)))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(generoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(duracaoLabel))
+                    .addComponent(duracaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(tomLabel))
+                    .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -404,7 +356,8 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         if (mensagem_erro == null) {
             tituloTextField.setText(peça_musical.getTitulo());
             compositorTextField.setText(peça_musical.getCompositor());
-            selecionarGêneroRadioButton(peça_musical.getGênero().ordinal());
+            // selecionarGêneroRadioButton(peça_musical.getGênero().ordinal());
+            gêneroComboBox.setSelectedItem(peça_musical.getGênero());
             duracaoTextField.setText(Integer.toString(peça_musical.getDuracao()));
             tomTextField.setText(peça_musical.getTom());
         } else {
@@ -461,10 +414,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_peças_musicais_cadastradasComboBoxActionPerformed
 
-    private void rockRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rockRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rockRadioButtonActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -472,7 +421,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarButton;
     private javax.swing.JButton cadastrarButton;
-    private javax.swing.JRadioButton clássicoRadioButton;
     private javax.swing.JLabel compositorLabel;
     private javax.swing.JTextField compositorTextField;
     private javax.swing.JButton consultarButton;
@@ -480,15 +428,12 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     private javax.swing.JTextField duracaoTextField;
     private javax.swing.JLabel generoLabel;
     private javax.swing.ButtonGroup gêneroButtonGroup;
+    private javax.swing.JComboBox<String> gêneroComboBox;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton limparButton;
     private javax.swing.JComboBox peças_musicais_cadastradasComboBox;
     private javax.swing.JLabel peças_musicais_cadastradasLabel;
-    private javax.swing.JRadioButton popRadioButton;
     private javax.swing.JButton removerButton;
-    private javax.swing.JRadioButton rockRadioButton;
-    private javax.swing.JRadioButton sambaRadioButton;
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JTextField tituloTextField;
     private javax.swing.JLabel tomLabel;

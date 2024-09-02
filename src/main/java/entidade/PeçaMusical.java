@@ -9,8 +9,7 @@ import persistência.BD;
 public class PeçaMusical {
 
     public enum Gênero {
-        //clássico, romântico, jazz, rock, pop, reggae, blues, country, barroco, modernismo, samba
-        clássico, rock, pop, samba
+        clássico, romântico, jazz, rock, pop, reggae, blues, country, barroco, modernismo, samba
     };
 
     private String titulo, compositor, tom;
