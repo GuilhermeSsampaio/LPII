@@ -60,6 +60,15 @@ public class Data {
         return 0;
     }
 
+     // Método auxiliar para converter uma String em Data
+     public static Data parseData(String dataStr) {
+        String[] partes = dataStr.split("/");
+        int dia = Integer.parseInt(partes[0]);
+        int mês = Integer.parseInt(partes[1]);
+        int ano = Integer.parseInt(partes[2]);
+        return new Data(dia, mês, ano);
+    }
+
     public String toString() {
         String data;
         if (dia < 10) {

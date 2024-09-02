@@ -8,6 +8,10 @@ import entidade.Interpretação;
 import entidade.Repertório;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+// import com.google.protobuf.TextFormat.ParseException;
 
 public class JanelaCadastroRepertórios extends javax.swing.JFrame {
 
@@ -41,8 +45,16 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         if (nome.isEmpty()) {
             return null;
         }
-        String data_montagem = data_montagemTextField.getText();
-        if (data_montagem.isEmpty()) {
+          String data_montagem_str = data_montagemTextField.getText();
+        if (data_montagem_str.isEmpty()) {
+            return null;
+        }
+        Date data_montagem = null;
+        try {
+            // Ajustar o formato da data para "dd/MM/yyyy"
+            data_montagem = new Date(new SimpleDateFormat("dd/MM/yyyy").parse(data_montagem_str).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
             return null;
         }
         String descrição = descriçãoTextArea.getText();
@@ -183,6 +195,8 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         getContentPane().add(data_montagemLabel, gridBagConstraints);
 
         data_montagemTextField.setColumns(50);
+        data_montagemTextField.setText("DD/MM/AAAA");
+        data_montagemTextField.setToolTipText("DD/MM/AAAA");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -368,7 +382,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         if (mensagem_erro == null) {
             sequencialTextField.setText(sequencial + "");
             nomeTextField.setText(repertório.getNome());
-            data_montagemTextField.setText(repertório.getData_montagem());
+            data_montagemTextField.setText(repertório.getDataMontagemFormatada());
             descriçãoTextArea.setText(repertório.getDescrição());
             atualizarListaInterpretaçõesRepertório(sequencial);
         } else {

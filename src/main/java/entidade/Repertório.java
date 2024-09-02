@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import persistência.BD;
 
@@ -11,10 +13,10 @@ public class Repertório {
 
     private int sequencial;
     private String nome;
-    private String data_montagem;
+    private Date data_montagem;
     private String descrição;
 
-    public Repertório(int sequencial, String nome, String data_montagem, String descrição) {
+    public Repertório(int sequencial, String nome, Date data_montagem, String descrição) {
         this.sequencial = sequencial;
         this.nome = nome;
         this.data_montagem = data_montagem;
@@ -69,7 +71,7 @@ public class Repertório {
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, repertório.nome);
-            comando.setString(2, repertório.data_montagem);
+            comando.setDate(2, repertório.data_montagem);
             comando.setString(3, repertório.descrição);
             lista_resultados = comando.executeQuery();
             while (lista_resultados.next()) {
@@ -93,7 +95,7 @@ public class Repertório {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setInt(1, repertório.getSequencial());
             comando.setString(2, repertório.getNome());
-            comando.setString(3, repertório.getData_montagem());
+            comando.setDate(3, repertório.getData_montagem());
             comando.setString(4, repertório.getDescrição());
             comando.execute();
             comando.close();
@@ -109,7 +111,7 @@ public class Repertório {
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, repertório.getNome());
-            comando.setString(2, repertório.getData_montagem());
+            comando.setDate(2, repertório.getData_montagem());
             comando.setString(3, repertório.getDescrição());
             comando.setInt(4, repertório.getSequencial());
             comando.executeUpdate();
@@ -155,7 +157,7 @@ public class Repertório {
             while (lista_resultados.next()) {
                 repertório = new Repertório(lista_resultados.getInt("sequencial"),
                         lista_resultados.getString("nome"),
-                        lista_resultados.getString("data_montagem"),
+                        lista_resultados.getDate("data_montagem"),
                         lista_resultados.getString("descrição"));
             }
             lista_resultados.close();
@@ -191,11 +193,16 @@ public class Repertório {
         this.nome = nome;
     }
 
-    public String getData_montagem() {
+    public Date getData_montagem() {
         return data_montagem;
     }
 
-    public void setData_montagem(String data_montagem) {
+    public String getDataMontagemFormatada() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(data_montagem);
+    }
+
+    public void setData_montagem(Date data_montagem) {
         this.data_montagem = data_montagem;
     }
 

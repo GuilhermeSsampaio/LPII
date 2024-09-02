@@ -102,6 +102,8 @@
     <Component class="javax.swing.JTextField" name="data_montagemTextField">
       <Properties>
         <Property name="columns" type="int" value="50"/>
+        <Property name="text" type="java.lang.String" value="DD/MM/AAAA"/>
+        <Property name="toolTipText" type="java.lang.String" value="DD/MM/AAAA"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
