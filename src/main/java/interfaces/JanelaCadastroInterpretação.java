@@ -27,15 +27,15 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         peças_musicais_cadastradas = PeçaMusical.getVisões();
         initComponents();
         atualizarTítuloRepertório();
-        atualizarListaInterpretações();
+        atualizarListaInterpretaçõesRepertório();
 
         // Adiciona um WindowListener para capturar o evento de fechamento da janela
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                janela_mãe.atualizarListaInterpretaçõesRepertório(sequencial_repertório);
-            }
-        });
+        // this.addWindowListener(new WindowAdapter() {
+        //     @Override
+        //     public void windowClosing(WindowEvent e) {
+        //         janela_mãe.atualizarListaInterpretaçõesRepertório(sequencial_repertório);
+        //     }
+        // });
     }
 
     private void atualizarTítuloRepertório() {
@@ -44,7 +44,7 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
     }
 
-    private void atualizarListaInterpretações() {
+    private void atualizarListaInterpretaçõesRepertório() {
         modelo_lista_interpretações = (DefaultListModel) peças_musicais_repertorioList.getModel();
         Interpretação[] interpretações_repertório = Interpretação.buscarInterpretaçõesRepertório(sequencial_repertório);
         for (Interpretação interpretação : interpretações_repertório) {
@@ -82,6 +82,11 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         repertórioLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                atualizarJanelaCadastroRepertórios(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         peças_musicais_cadastradasLabel.setText("Peças musicais cadastradas:");
@@ -184,6 +189,11 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void atualizarJanelaCadastroRepertórios(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_atualizarJanelaCadastroRepertórios
+        // TODO add your handling code here:
+        janela_mãe.atualizarListaInterpretaçõesRepertório(sequencial_repertório);
+    }//GEN-LAST:event_atualizarJanelaCadastroRepertórios
+
     private void inserirInterpretação(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_inserirInterpretação
         PeçaMusical visão_peça_musical = (PeçaMusical) peças_musicais_cadastradasComboBox.getSelectedItem();
         String mensagem_erro = null;
@@ -205,21 +215,19 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
     // GEN-LAST:event_inserirInterpretação
     private void removerInterpretação(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removerInterpretação
-        Interpretação interpretação = (Interpretação) peças_musicais_repertorioList.getSelectedValue();
-        String mensagem_erro = null;
-        if (interpretação != null) {
-            mensagem_erro = controlador.removerInterpretação(interpretação.getSequencial());
-        }
-        if (mensagem_erro == null) {
-            modelo_lista_interpretações.removeElement(interpretação);
-        } else {
-            mensagem_erro = "Nenhuma peça foi selecionada";
-        }
-        if (mensagem_erro == null) {
-            modelo_lista_interpretações.removeElement(interpretação);
-        } else {
-            informarErro(mensagem_erro);
-        }
+            Interpretação visão = (Interpretação) peças_musicais_repertorioList.getSelectedValue();
+            if (visão != null) {
+                int sequencial = visão.getSequencial(); // Certifique-se de obter o sequencial da interpretação
+                String mensagem_erro = controlador.removerInterpretação(sequencial);
+                if (mensagem_erro == null) {
+                    modelo_lista_interpretações.removeElement(visão);
+                } else {
+                    informarErro(mensagem_erro);
+                }
+            } else {
+                informarErro("Nenhuma peça foi selecionada");
+            }
+        
     }// GEN-LAST:event_removerInterpretação
 
     /**

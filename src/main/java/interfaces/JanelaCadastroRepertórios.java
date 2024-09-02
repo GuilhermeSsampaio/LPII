@@ -69,14 +69,6 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         return null;
     }
 
-    private void inicializarListaInterpretaçõesRepertório() {
-        modelo_interpretações_repertório = (DefaultListModel) peças_musicaisList.getModel();
-        Interpretação[] visões = Interpretação.getVisões();
-        for (Interpretação visão : visões) {
-            modelo_interpretações_repertório.addElement(visão);
-        }
-    }
-
     public void atualizarListaInterpretaçõesRepertório(int sequencial) {
         modelo_interpretações_repertório.clear();
         Interpretação[] interpretações_repertório = Interpretação.buscarInterpretaçõesRepertório(sequencial);
@@ -151,6 +143,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         getContentPane().add(sequencialLabel, gridBagConstraints);
 
         sequencialTextField.setEditable(false);
+        sequencialTextField.setColumns(50);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;

@@ -19,7 +19,6 @@ public class ControladorCadastroInterpretaçõesRepertório {
         } else {
             return "Interpretação não cadastrada";
         }
-
     }
 
     public String inserirInterpretação(Interpretação interpretação) {

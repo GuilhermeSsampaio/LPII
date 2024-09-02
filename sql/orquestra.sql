@@ -21,8 +21,7 @@ CREATE TABLE PeçasMusicais (
 CREATE TABLE Repertórios (
     Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(50),
-    -- Data_montagem DATE,
-    data_montagem VARCHAR(8),
+    Data_montagem DATE,
     descrição VARCHAR(70)
 );
 

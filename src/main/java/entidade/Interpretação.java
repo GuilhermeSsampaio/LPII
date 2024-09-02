@@ -108,11 +108,15 @@ public class Interpretação {
         String sql = "INSERT INTO Interpretações VALUES(?, ?, ?)";
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
-            comando.setInt(1, interpretação.sequencial);
+            comando.setInt(1, interpretação.getSequencial());
             comando.setInt(2, interpretação.repertório.getSequencial());
             comando.setString(3, interpretação.peça_musical.getTitulo());
             comando.executeUpdate();
             comando.close();
+            // System.out.println("seq int"+interpretação.getSequencial());
+            // System.out.println("sq rep"+interpretação.repertório.getSequencial());
+            // System.out.println("seq peçca"+interpretação.peça_musical.getTitulo());
+            
         } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
             return "Erro ao adicionar interpretação";
@@ -121,6 +125,7 @@ public class Interpretação {
     }
 
     public static String removerInterpretação(int sequencial) {
+        System.out.println("Sequencial passado para remoção: " + sequencial);
         String sql = "DELETE FROM Interpretações WHERE sequencial = ?";
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -133,33 +138,31 @@ public class Interpretação {
             return "Erro ao remover interpretação";
         }
     }
-
+    
     //essa nao tinha no tutorial
-    public static Interpretação[] buscarInterpretaçõesRepertório(int sequencial_repertório) {
-        String sql = "SELECT * FROM Interpretações WHERE RepertórioId = ?";
-        ResultSet lista_resultados = null;
-        Interpretação interpretação = null;
-        ArrayList<Interpretação> interpretações = new ArrayList<>();
-        try {
-            PreparedStatement comando = BD.conexão.prepareStatement(sql);
-            comando.setInt(1, sequencial_repertório);
-            lista_resultados = comando.executeQuery();
+   public static Interpretação[] buscarInterpretaçõesRepertório(int sequencial_repertório) {
+    String sql = "SELECT * FROM Interpretações WHERE RepertórioId = ?";
+    ArrayList<Interpretação> interpretações = new ArrayList<>();
+    
+    try (PreparedStatement comando = BD.conexão.prepareStatement(sql)) {
+        comando.setInt(1, sequencial_repertório);
+        try (ResultSet lista_resultados = comando.executeQuery()) {
             while (lista_resultados.next()) {
-                interpretação = new Interpretação(
-                        sequencial_repertório,
+                Interpretação interpretação = new Interpretação(
+                        lista_resultados.getInt("Sequencial"), // Corrigido para pegar o sequencial correto
                         Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")),
-                        PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId")));
+                        PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId"))
+                );
                 interpretações.add(interpretação);
             }
-            lista_resultados.close();
-            comando.close();
-        } catch (SQLException exceção_sql) {
-            exceção_sql.printStackTrace();
-            return new Interpretação[0]; // Retorna um array vazio em caso de erro
         }
-
-        return interpretações.toArray(new Interpretação[0]);
+    } catch (SQLException exceção_sql) {
+        exceção_sql.printStackTrace();
+        return new Interpretação[0]; // Retorna um array vazio em caso de erro
     }
+
+    return interpretações.toArray(new Interpretação[0]);
+}
 
     public int getSequencial() {
         return sequencial;
