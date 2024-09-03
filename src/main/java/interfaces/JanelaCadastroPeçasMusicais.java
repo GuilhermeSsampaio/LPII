@@ -72,7 +72,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     //             break;
     //     }
     // }
-
     private void informarErro(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
     }
@@ -100,10 +99,11 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
             return null;
         }
         Gênero gênero = null;
-        if(gêneroComboBox.getSelectedItem() != null) {
+        if (gêneroComboBox.getSelectedItem() != null) {
             gênero = (Gênero) gêneroComboBox.getSelectedItem();
+        } else {
+            return null;
         }
-        else return null;
         //)
         // if (gêneroButtonGroup.getSelection() != null) {
         //     gênero = Gênero.values()[gêneroButtonGroup.getSelection().getMnemonic()];
@@ -148,7 +148,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         tituloTextField = new javax.swing.JTextField();
         compositorTextField = new javax.swing.JTextField();
         duracaoTextField = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        comandosPanel = new javax.swing.JPanel();
         cadastrarButton = new javax.swing.JButton();
         consultarButton = new javax.swing.JButton();
         alterarButton = new javax.swing.JButton();
@@ -163,11 +163,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         peças_musicais_cadastradasLabel.setText("Peças musicais cadastradas:");
 
         peças_musicais_cadastradasComboBox.setModel(new DefaultComboBoxModel(peças_musicais_cadastradas));
-        peças_musicais_cadastradasComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                peças_musicais_cadastradasComboBoxActionPerformed(evt);
-            }
-        });
 
         tituloLabel.setText("Título:");
 
@@ -197,7 +192,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 inserirPeçaMusical(evt);
             }
         });
-        jPanel1.add(cadastrarButton);
+        comandosPanel.add(cadastrarButton);
 
         consultarButton.setText("Consultar");
         consultarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +200,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 consultarPeçaMusical(evt);
             }
         });
-        jPanel1.add(consultarButton);
+        comandosPanel.add(consultarButton);
 
         alterarButton.setText("Alterar");
         alterarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +208,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 alterarPeçaMusical(evt);
             }
         });
-        jPanel1.add(alterarButton);
+        comandosPanel.add(alterarButton);
 
         removerButton.setText("Remover");
         removerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +216,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 removerPeçaMusical(evt);
             }
         });
-        jPanel1.add(removerButton);
+        comandosPanel.add(removerButton);
 
         limparButton.setText("Limpar");
         limparButton.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +224,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 limparCampos(evt);
             }
         });
-        jPanel1.add(limparButton);
+        comandosPanel.add(limparButton);
 
         gêneroComboBox.setModel(new DefaultComboBoxModel(Gênero.values()));
 
@@ -271,7 +266,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(comandosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +308,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                         .addComponent(tomLabel))
                     .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(comandosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -321,11 +316,11 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
     private void inserirPeçaMusical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirPeçaMusical
         PeçaMusical peça_musical = obterPeçaMusicalInformada();
-        System.out.println(peça_musical);
+        //System.out.println(peça_musical);
         String mensagem_erro = null;
         if (peça_musical != null) {
             mensagem_erro = controlador.inserirPeçaMusical(peça_musical);
-            informarSucesso("Peça musical inserida com sucesso");
+            //informarSucesso("Peça musical inserida com sucesso");
 
         } else {
             mensagem_erro = "Preencha todos os campos";
@@ -370,7 +365,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (peça_musical != null) {
             mensagem_erro = controlador.alterarPeçaMusical(peça_musical);
-            informarSucesso("Peça musical alterada com sucesso");
+            //informarSucesso("Peça musical alterada com sucesso");
             atualizarComboBox();
         } else {
             mensagem_erro = "Preencha todos os campos";
@@ -393,7 +388,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (visão != null) {
             mensagem_erro = controlador.removerPeçaMusical(visão.getTitulo());
-            informarSucesso("Peça musical removida com sucesso");
+            //informarSucesso("Peça musical removida com sucesso");
         } else {
             mensagem_erro = "Selecione uma peça musical, nenhuma foi selecionada";
         }
@@ -410,10 +405,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_limparCampos
 
-    private void peças_musicais_cadastradasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peças_musicais_cadastradasComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_peças_musicais_cadastradasComboBoxActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -421,6 +412,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarButton;
     private javax.swing.JButton cadastrarButton;
+    private javax.swing.JPanel comandosPanel;
     private javax.swing.JLabel compositorLabel;
     private javax.swing.JTextField compositorTextField;
     private javax.swing.JButton consultarButton;
@@ -429,7 +421,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     private javax.swing.JLabel generoLabel;
     private javax.swing.ButtonGroup gêneroButtonGroup;
     private javax.swing.JComboBox gêneroComboBox;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton limparButton;
     private javax.swing.JComboBox peças_musicais_cadastradasComboBox;
     private javax.swing.JLabel peças_musicais_cadastradasLabel;

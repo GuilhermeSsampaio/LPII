@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 public class JanelaCadastroRepertórios extends javax.swing.JFrame {
 
     ControladorCadastroRepertórios controlador;
-    Repertório repertórios_cadastrados[];
+    Repertório[] repertórios_cadastrados;
     DefaultListModel modelo_interpretações_repertório;
 
     public JanelaCadastroRepertórios(ControladorCadastroRepertórios controlador) {
@@ -45,7 +45,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         if (nome.isEmpty()) {
             return null;
         }
-          String data_montagem_str = data_montagemTextField.getText();
+        String data_montagem_str = data_montagemTextField.getText();
         if (data_montagem_str.isEmpty()) {
             return null;
         }
@@ -119,7 +119,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         limparButton = new javax.swing.JButton();
         peças_musicaisScrollPane = new javax.swing.JScrollPane();
         peças_musicaisList = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        descriçãoScrollPane = new javax.swing.JScrollPane();
         descriçãoTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -301,7 +301,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
 
         descriçãoTextArea.setColumns(20);
         descriçãoTextArea.setRows(5);
-        jScrollPane1.setViewportView(descriçãoTextArea);
+        descriçãoScrollPane.setViewportView(descriçãoTextArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -315,7 +315,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+        getContentPane().add(descriçãoScrollPane, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -347,7 +347,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (repertório != null) {
             mensagem_erro = controlador.inserirRepertório(repertório);
-            informarSucesso("Repertório inserido com sucesso");
+            //informarSucesso("Repertório inserido com sucesso");
         } else {
             mensagem_erro = "Preencha todos os campos";
         }
@@ -394,7 +394,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (repertório != null) {
             mensagem_erro = controlador.alterarRepertório(repertório);
-            informarSucesso("Repertório alterado com sucesso");
+            //informarSucesso("Repertório alterado com sucesso");
         } else {
             mensagem_erro = "Preencha todos os campos";
         }
@@ -415,7 +415,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (visão != null) {
             mensagem_erro = controlador.removerRepertório(visão.getSequencial());
-            informarSucesso("Repertório removido com sucesso");
+            //informarSucesso("Repertório removido com sucesso");
         } else {
             mensagem_erro = "Nenhum repertório selecionado";
         }
@@ -438,10 +438,10 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
     private javax.swing.JLabel data_montagemLabel;
     private javax.swing.JTextField data_montagemTextField;
     private javax.swing.JLabel descriçãoLabel;
+    private javax.swing.JScrollPane descriçãoScrollPane;
     private javax.swing.JTextArea descriçãoTextArea;
     private javax.swing.JButton inserirButton;
     private javax.swing.JButton interpretaçõesButton;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparButton;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField nomeTextField;

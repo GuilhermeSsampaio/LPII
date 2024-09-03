@@ -24,11 +24,11 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         this.sequencial_repertório = sequencial_repertório;
         peças_musicais_cadastradas = PeçaMusical.getVisões();
         initComponents();
-        atualizarTítuloRepertório();
+        atualizarNomeRepertório();
         atualizarListaInterpretaçõesRepertório();
     }
 
-    private void atualizarTítuloRepertório() {
+    private void atualizarNomeRepertório() {
         Repertório repertório = Repertório.buscarRepertório(sequencial_repertório);
         repertórioLabel.setText("Repertório: " + repertório.getNome());
 
@@ -205,19 +205,19 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
 
     // GEN-LAST:event_inserirInterpretação
     private void removerInterpretação(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removerInterpretação
-            Interpretação visão = (Interpretação) peças_musicais_repertorioList.getSelectedValue();
-            if (visão != null) {
-                int sequencial = visão.getSequencial(); // Certifique-se de obter o sequencial da interpretação
-                String mensagem_erro = controlador.removerInterpretação(sequencial);
-                if (mensagem_erro == null) {
-                    modelo_lista_interpretações.removeElement(visão);
-                } else {
-                    informarErro(mensagem_erro);
-                }
+        Interpretação visão = (Interpretação) peças_musicais_repertorioList.getSelectedValue();
+        if (visão != null) {
+            int sequencial = visão.getSequencial(); // Certifique-se de obter o sequencial da interpretação
+            String mensagem_erro = controlador.removerInterpretação(sequencial);
+            if (mensagem_erro == null) {
+                modelo_lista_interpretações.removeElement(visão);
             } else {
-                informarErro("Nenhuma peça foi selecionada");
+                informarErro(mensagem_erro);
             }
-        
+        } else {
+            informarErro("Nenhuma peça foi selecionada");
+        }
+
     }// GEN-LAST:event_removerInterpretação
 
     /**

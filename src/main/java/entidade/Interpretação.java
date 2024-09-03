@@ -134,47 +134,43 @@ public class Interpretação {
             return "Erro ao remover interpretação";
         }
     }
-    
-    //essa nao tinha no tutorial
-   public static Interpretação[] buscarInterpretaçõesRepertório(int sequencial_repertório) {
-    String sql = "SELECT * FROM Interpretações WHERE RepertórioId = ?";
-    ArrayList<Interpretação> interpretações = new ArrayList<>();
-    
-    try (PreparedStatement comando = BD.conexão.prepareStatement(sql)) {
-        comando.setInt(1, sequencial_repertório);
-        try (ResultSet lista_resultados = comando.executeQuery()) {
-            while (lista_resultados.next()) {
-                Interpretação interpretação = new Interpretação(
-                        lista_resultados.getInt("Sequencial"), // Corrigido para pegar o sequencial correto
-                        Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")),
-                        PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId"))
-                );
-                interpretações.add(interpretação);
-            }
-        }
-    } catch (SQLException exceção_sql) {
-        exceção_sql.printStackTrace();
-        return new Interpretação[0]; // Retorna um array vazio em caso de erro
-    }
 
-    return interpretações.toArray(new Interpretação[0]);
-}
+    public static Interpretação[] buscarInterpretaçõesRepertório(int sequencial_repertório) {
+        String sql = "SELECT * FROM Interpretações WHERE RepertórioId = ?";
+        ArrayList<Interpretação> interpretações = new ArrayList<>();
+
+        try (PreparedStatement comando = BD.conexão.prepareStatement(sql)) {
+            comando.setInt(1, sequencial_repertório);
+            try (ResultSet lista_resultados = comando.executeQuery()) {
+                while (lista_resultados.next()) {
+                    Interpretação interpretação = new Interpretação(
+                            lista_resultados.getInt("Sequencial"),
+                            Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")),
+                            PeçaMusical.buscarPeçaMusical(lista_resultados.getString("PeçaMusicalId"))
+                    );
+                    interpretações.add(interpretação);
+                }
+            }
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+            return new Interpretação[0];
+        }
+
+        return interpretações.toArray(new Interpretação[0]);
+    }
 
     public int getSequencial() {
         return sequencial;
     }
 
-    //nao tinha no tutorial
     public void setSequencial(int sequencial) {
         this.sequencial = sequencial;
     }
 
-    //nao tinha no tutorial
     public Repertório getRepertório() {
         return repertório;
     }
 
-    //nao tinha no tutorial
     public PeçaMusical getPeçaMusical() {
         return peça_musical;
     }

@@ -71,7 +71,7 @@
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="46" pref="46" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="414" max="-2" attributes="0"/>
+              <Component id="comandosPanel" min="-2" pref="414" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,7 +127,7 @@
                   <Component id="tomTextField" min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="51" max="-2" attributes="0"/>
+              <Component id="comandosPanel" min="-2" pref="51" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -144,9 +144,6 @@
           <Connection code="new DefaultComboBoxModel(pe&#xe7;as_musicais_cadastradas)" type="code"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pe&#xe7;as_musicais_cadastradasComboBoxActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
@@ -208,7 +205,7 @@
         </Property>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="comandosPanel">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>

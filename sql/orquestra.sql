@@ -22,7 +22,7 @@ CREATE TABLE Repertórios (
     Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(50),
     Data_montagem DATE,
-    descrição VARCHAR(70)
+    descrição VARCHAR(200)
 );
 
 CREATE TABLE Interpretações (

@@ -274,7 +274,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (maestro != null) {
             mensagem_erro = controlador.inserirMaestro(maestro);
-            informarSucesso("Maestro inserido com sucesso");
+            //informarSucesso("Maestro inserido com sucesso");
         } else {
             mensagem_erro = "Algum atributo do maestro não foi informado";
         }
@@ -293,7 +293,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (maestro != null) {
             mensagem_erro = controlador.alterarMaestro(maestro);
-            informarSucesso("Maestro alterado com sucesso");
+            //informarSucesso("Maestro alterado com sucesso");
             atualizarComboBox();
         } else {
             mensagem_erro = "Algum atributo do maestro não foi informado";
@@ -316,7 +316,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (visão != null) {
             mensagem_erro = controlador.removerMaestro(visão.getNome());
-            informarSucesso("Maestro removido com sucesso");
+            //informarSucesso("Maestro removido com sucesso");
         } else {
             mensagem_erro = "Nenhum maestro selecionado";
         }
