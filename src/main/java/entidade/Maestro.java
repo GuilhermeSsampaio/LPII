@@ -9,14 +9,19 @@ import persistência.BD;
 
 public class Maestro {
 
-    private String nome, estilo_regencia;
+    public enum Estilo{
+        expressivo, dinâmico, leve, elegante;
+    };
+    
+    private String nome;
     int anos_experiencia;
+    private Estilo estilo;
     boolean estrangeiro;
 
-    public Maestro(String nome, int anos_experiencia, String estilo_regencia, boolean estrangeiro) {
+    public Maestro(String nome, int anos_experiencia, Estilo estilo, boolean estrangeiro) {
         this.nome = nome;
         this.anos_experiencia = anos_experiencia;
-        this.estilo_regencia = estilo_regencia;
+        this.estilo = estilo;
         this.estrangeiro = estrangeiro;
     }
 
@@ -41,7 +46,7 @@ public class Maestro {
             while (lista_resultados.next()) {
                 maestro = new Maestro(lista_resultados.getString("nome"),
                         lista_resultados.getInt("anos_experiencia"),
-                        lista_resultados.getString("estilo_regencia"),
+                        Estilo.valueOf(lista_resultados.getString("estilo_regencia")),
                         lista_resultados.getBoolean("estrangeiro"));
             }
             lista_resultados.close();
@@ -60,7 +65,7 @@ public class Maestro {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, maestro.getNome());
             comando.setInt(2, maestro.getAnos_experiencia());
-            comando.setString(3, maestro.getEstilo_regencia());
+            comando.setString(3, maestro.getEstilo().toString());
             comando.setBoolean(4, maestro.isEstrangeiro());
             comando.executeUpdate();
             comando.close();
@@ -78,7 +83,7 @@ public class Maestro {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(4, maestro.getNome());
             comando.setInt(1, maestro.getAnos_experiencia());
-            comando.setString(2, maestro.getEstilo_regencia());
+            comando.setString(2, maestro.getEstilo().toString());
             comando.setBoolean(3, maestro.isEstrangeiro());
             comando.executeUpdate();
             comando.close();
@@ -138,8 +143,8 @@ public class Maestro {
         this.anos_experiencia = anos_experiencia;
     }
 
-    public String getEstilo_regencia() {
-        return estilo_regencia;
+    public Estilo getEstilo() {
+        return estilo;
     }
 
     public boolean isEstrangeiro() {

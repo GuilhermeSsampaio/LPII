@@ -72,6 +72,7 @@ public class JanelaCadastroInterpretação extends javax.swing.JFrame {
         repertórioLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Interpretações");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 atualizarJanelaCadastroRepertórios(evt);

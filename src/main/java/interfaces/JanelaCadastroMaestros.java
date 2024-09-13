@@ -2,11 +2,26 @@ package interfaces;
 
 import controle.ControladorCadastroMaestros;
 import entidade.Maestro;
+import entidade.Maestro.Estilo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
+     public static Estilo converteStringParaGênero(String genero_str) {
+        switch (genero_str) {
+            case "expressivo":
+                return Estilo.expressivo;
+            case "dinâmico":
+                return Estilo.dinâmico;
+            case "leve":
+                return Estilo.leve;
+            case "elegante":
+                return Estilo.elegante;
+            default:
+                return null;
+        }
+    }
     ControladorCadastroMaestros controlador;
     Maestro[] maestros_cadastrados;
 
@@ -34,19 +49,38 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
             return null;
         }
         int anos_experiencia = Integer.parseInt(anos_experiencia_str);
-        String estilo_regencia = estilo_regenciaTextField.getText();
-        if (estilo_regencia.isEmpty()) {
+        Estilo estilo = null;
+        if(estiloButtonGroup.getSelection() != null){
+            estilo = Estilo.values()[estiloButtonGroup.getSelection().getMnemonic()];
+        }else{
             return null;
         }
         boolean estrangeiro = estrangeiroCheckBox.isSelected();
-        return new Maestro(nome, anos_experiencia, estilo_regencia, estrangeiro);
+        return new Maestro(nome, anos_experiencia, estilo, estrangeiro);
     }
 
     private void limparCampos() {
         nomeTextField.setText("");
         anos_experienciaTextField.setText("");
-        estilo_regenciaTextField.setText("");
+        estiloButtonGroup.clearSelection();
         estrangeiroCheckBox.setSelected(false);
+    }
+
+    private void selecionarEstiloRadioButton(int índice_estilo_regência) {
+        switch (índice_estilo_regência) {
+            case 0:
+                expressivoRadioButton.setSelected(true);
+                break;
+            case 1:
+                dinâmicoRadioButton.setSelected(true);
+                break;
+            case 2:
+                leveRadioButton.setSelected(true);
+                break;
+            case 3:
+                eleganteRadioButton.setSelected(true);
+                break;
+        }
     }
 
     private void informarErro(String mensagem) {
@@ -74,6 +108,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        estiloButtonGroup = new javax.swing.ButtonGroup();
         nomeLabel = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
         maestros_cadastradosLabel = new javax.swing.JLabel();
@@ -81,7 +116,6 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         anos_experienciaLabel = new javax.swing.JLabel();
         anos_experienciaTextField = new javax.swing.JTextField();
         estilo_regenciaLabel = new javax.swing.JLabel();
-        estilo_regenciaTextField = new javax.swing.JTextField();
         comandosPanel = new javax.swing.JPanel();
         inserirButton = new javax.swing.JButton();
         consultarButton = new javax.swing.JButton();
@@ -89,6 +123,11 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         removerButton = new javax.swing.JButton();
         LimparButton = new javax.swing.JButton();
         estrangeiroCheckBox = new javax.swing.JCheckBox();
+        EstilosPanel = new javax.swing.JPanel();
+        expressivoRadioButton = new javax.swing.JRadioButton();
+        dinâmicoRadioButton = new javax.swing.JRadioButton();
+        leveRadioButton = new javax.swing.JRadioButton();
+        eleganteRadioButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Maestros");
@@ -97,84 +136,74 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         nomeLabel.setText("Nome: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 172, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(22, 80, 0, 0);
         getContentPane().add(nomeLabel, gridBagConstraints);
 
         nomeTextField.setColumns(50);
         nomeTextField.setPreferredSize(new java.awt.Dimension(556, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 196;
         gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
         getContentPane().add(nomeTextField, gridBagConstraints);
 
         maestros_cadastradosLabel.setText("Maestros cadastrados:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipady = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(64, 92, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(73, 0, 0, 0);
         getContentPane().add(maestros_cadastradosLabel, gridBagConstraints);
 
         maestros_cadastradosComboBox.setModel(new DefaultComboBoxModel(maestros_cadastrados));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.ipadx = 170;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(66, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(75, 6, 0, 0);
         getContentPane().add(maestros_cadastradosComboBox, gridBagConstraints);
 
         anos_experienciaLabel.setText("Anos de experiência:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.ipadx = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 101, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 2, 0, 0);
         getContentPane().add(anos_experienciaLabel, gridBagConstraints);
 
         anos_experienciaTextField.setColumns(50);
         anos_experienciaTextField.setPreferredSize(new java.awt.Dimension(556, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 196;
         gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(11, 6, 0, 0);
         getContentPane().add(anos_experienciaTextField, gridBagConstraints);
 
         estilo_regenciaLabel.setText("Estilo de regência:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 113, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
         getContentPane().add(estilo_regenciaLabel, gridBagConstraints);
-
-        estilo_regenciaTextField.setColumns(50);
-        estilo_regenciaTextField.setPreferredSize(new java.awt.Dimension(556, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 196;
-        gridBagConstraints.ipady = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 4, 0, 0);
-        getContentPane().add(estilo_regenciaTextField, gridBagConstraints);
 
         inserirButton.setText("Inserir");
         inserirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -218,23 +247,54 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 115, 16, 199);
+        gridBagConstraints.insets = new java.awt.Insets(18, 0, 0, 0);
         getContentPane().add(comandosPanel, gridBagConstraints);
 
         estrangeiroCheckBox.setText("Estrangeiro: ");
         estrangeiroCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 141, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(11, 48, 0, 0);
         getContentPane().add(estrangeiroCheckBox, gridBagConstraints);
+
+        estiloButtonGroup.add(expressivoRadioButton);
+        expressivoRadioButton.setText("expressivo");
+        expressivoRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expressivoRadioButtonActionPerformed(evt);
+            }
+        });
+        EstilosPanel.add(expressivoRadioButton);
+
+        estiloButtonGroup.add(dinâmicoRadioButton);
+        dinâmicoRadioButton.setMnemonic('\u0001');
+        dinâmicoRadioButton.setText("dinâmico");
+        EstilosPanel.add(dinâmicoRadioButton);
+
+        estiloButtonGroup.add(leveRadioButton);
+        leveRadioButton.setMnemonic('\u0002');
+        leveRadioButton.setText("leve");
+        EstilosPanel.add(leveRadioButton);
+
+        estiloButtonGroup.add(eleganteRadioButton);
+        eleganteRadioButton.setMnemonic('\u0003');
+        eleganteRadioButton.setText("elegante");
+        EstilosPanel.add(eleganteRadioButton);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 4, 0, 8);
+        getContentPane().add(EstilosPanel, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,7 +316,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         if (mensagem_erro == null) {
             nomeTextField.setText(maestro.getNome());
             anos_experienciaTextField.setText(Integer.toString(maestro.getAnos_experiencia()));
-            estilo_regenciaTextField.setText(maestro.getEstilo_regencia());
+            selecionarEstiloRadioButton(maestro.getEstilo().ordinal());
             estrangeiroCheckBox.setSelected(maestro.isEstrangeiro());
         } else
             informarErro(mensagem_erro);
@@ -328,21 +388,30 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
             informarErro(mensagem_erro);
     }//GEN-LAST:event_removerMaestro
 
+    private void expressivoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expressivoRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expressivoRadioButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel EstilosPanel;
     private javax.swing.JButton LimparButton;
     private javax.swing.JButton alterarButton;
     private javax.swing.JLabel anos_experienciaLabel;
     private javax.swing.JTextField anos_experienciaTextField;
     private javax.swing.JPanel comandosPanel;
     private javax.swing.JButton consultarButton;
+    private javax.swing.JRadioButton dinâmicoRadioButton;
+    private javax.swing.JRadioButton eleganteRadioButton;
+    private javax.swing.ButtonGroup estiloButtonGroup;
     private javax.swing.JLabel estilo_regenciaLabel;
-    private javax.swing.JTextField estilo_regenciaTextField;
     private javax.swing.JCheckBox estrangeiroCheckBox;
+    private javax.swing.JRadioButton expressivoRadioButton;
     private javax.swing.JButton inserirButton;
+    private javax.swing.JRadioButton leveRadioButton;
     private javax.swing.JComboBox maestros_cadastradosComboBox;
     private javax.swing.JLabel maestros_cadastradosLabel;
     private javax.swing.JLabel nomeLabel;

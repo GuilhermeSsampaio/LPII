@@ -123,6 +123,7 @@ public class JanelaCadastroRepertórios extends javax.swing.JFrame {
         descriçãoTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Repertórios");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         repertóriosCadastrados.setText("Repertórios:");
