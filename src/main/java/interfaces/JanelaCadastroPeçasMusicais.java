@@ -6,6 +6,11 @@ import javax.swing.JOptionPane;
 import controle.ControladorCadastroPeçasMusicais;
 import entidade.PeçaMusical;
 import entidade.PeçaMusical.Gênero;
+import entidade.PeçaMusicalClássica;
+import entidade.PeçaMusicalClássica.EstiloMúsicaClássica;
+import entidade.PeçaMusicalPopular;
+import entidade.PeçaMusicalPopular.EstiloMúsicaPopular;
+import entidade.PeçaMusicalPopular.InstrumentaçãoCaracterística;
 
 public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
@@ -40,11 +45,17 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
 
     ControladorCadastroPeçasMusicais controlador;
     PeçaMusical[] peças_musicais_cadastradas;
+    PainelPeçaMusicalClássica peça_musical_clássicaPainel;
+    PainelPeçaMusicalPopular peça_musical_popularPainel;
 
     public JanelaCadastroPeçasMusicais(ControladorCadastroPeçasMusicais controlador) {
         this.controlador = controlador;
         peças_musicais_cadastradas = PeçaMusical.getVisões();
         initComponents();
+        peça_musical_clássicaPainel = new PainelPeçaMusicalClássica();
+        peça_musical_popularPainel = new PainelPeçaMusicalPopular();
+        especialização_peça_musicalTabbedPane.addTab("Peça músical Clássica", peça_musical_clássicaPainel);
+        especialização_peça_musicalTabbedPane.addTab("Peça músical Popular", peça_musical_popularPainel);
         limparCampos();
     }
 
@@ -119,6 +130,24 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         if (tom.isEmpty()) {
             return null;
         }
+
+        PeçaMusical peça_musical = null;
+        int índice_especialização = especialização_peça_musicalTabbedPane.getSelectedIndex();
+        switch (índice_especialização) {
+            case 0:
+                EstiloMúsicaClássica estilo_música_clássica = peça_musical_clássicaPainel.getSelectedEstiloMúsicaClássica();
+                boolean muito_conhecida = peça_musical_clássicaPainel.isMuitoConhecida();
+                peça_musical = new PeçaMusicalClássica(titulo, compositor, duracao, tom, gênero, estilo_música_clássica, muito_conhecida);
+                break;
+            case 1:
+                EstiloMúsicaPopular estilo_música_popular = peça_musical_popularPainel.getSelectedEstiloMúsicaPopular();
+                InstrumentaçãoCaracterística instrumentação_característica = peça_musical_popularPainel.getInstrumentaçãoCaracterística();
+                peça_musical = new PeçaMusicalPopular(titulo, compositor, duracao, tom, gênero, estilo_música_popular, instrumentação_característica);
+                break;
+
+            default:
+                break;
+        }
         return new PeçaMusical(titulo, compositor, duracao, tom, gênero);
     }
 
@@ -155,6 +184,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         removerButton = new javax.swing.JButton();
         limparButton = new javax.swing.JButton();
         gêneroComboBox = new javax.swing.JComboBox();
+        especialização_peça_musicalTabbedPane = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Peças");
@@ -233,40 +263,47 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(peças_musicais_cadastradasLabel)
-                .addGap(18, 18, 18)
-                .addComponent(peças_musicais_cadastradasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(especialização_peça_musicalTabbedPane)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(tituloLabel)
-                .addGap(1, 1, 1)
-                .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(compositorLabel)))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(generoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(duracaoLabel)
-                .addGap(2, 2, 2)
-                .addComponent(duracaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(tomLabel)
-                .addGap(3, 3, 3)
-                .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(comandosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(151, 151, 151)
+                        .addComponent(tituloLabel)
+                        .addGap(1, 1, 1)
+                        .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(compositorLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(generoLabel)
+                        .addGap(6, 6, 6)
+                        .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(duracaoLabel)
+                        .addGap(2, 2, 2)
+                        .addComponent(duracaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(tomLabel)
+                        .addGap(3, 3, 3)
+                        .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(comandosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(peças_musicais_cadastradasLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(peças_musicais_cadastradasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,16 +322,16 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                     .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(compositorLabel)))
+                        .addComponent(compositorLabel))
+                    .addComponent(compositorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(generoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                        .addGap(6, 6, 6)
+                        .addComponent(gêneroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -307,7 +344,9 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(tomLabel))
                     .addComponent(tomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(especialização_peça_musicalTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comandosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -355,8 +394,20 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
             gêneroComboBox.setSelectedItem(peça_musical.getGênero());
             duracaoTextField.setText(Integer.toString(peça_musical.getDuracao()));
             tomTextField.setText(peça_musical.getTom());
-        } else {
-            informarErro(mensagem_erro);
+            if (peça_musical instanceof PeçaMusicalClássica) {
+                especialização_peça_musicalTabbedPane.setSelectedIndex(0);
+                PeçaMusicalClássica peça_musical_clássica = (PeçaMusicalClássica) peça_musical;
+                peça_musical_clássicaPainel.setEstiloMusicaClássica(peça_musical_clássica.getEstilo_música_clássica().ordinal());
+                peça_musical_clássicaPainel.setMuitoConhecida(peça_musical_clássica.isMuito_conhecida());
+            } else if (peça_musical instanceof PeçaMusicalPopular) {
+                especialização_peça_musicalTabbedPane.setSelectedIndex(1);
+                PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
+                peça_musical_popularPainel.setEstiloMusicaPopular(peça_musical_popular.getEstilo_música_popular());
+                peça_musical_popularPainel.setInstrumentaçãoCaracterística(peça_musical_popular.getInstrumentação_característica());
+
+            } else {
+                informarErro(mensagem_erro);
+            }
         }
     }//GEN-LAST:event_consultarPeçaMusical
 
@@ -375,11 +426,25 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
             PeçaMusical visão = getVisãoAlterada(peça_musical.getTitulo());
             if (visão != null) {
                 visão.setTom(peça_musical.getTom());
-                peças_musicais_cadastradasComboBox.updateUI();
-                peças_musicais_cadastradasComboBox.setSelectedItem(visão);
+
+                if (peça_musical instanceof PeçaMusicalClássica && visão instanceof PeçaMusicalClássica) {
+                    PeçaMusicalClássica peça_musical_clássica = (PeçaMusicalClássica) peça_musical;
+                    PeçaMusicalClássica visão_clássica = (PeçaMusicalClássica) visão;
+                    visão_clássica.setEstilo_música_clássica(peça_musical_clássica.getEstilo_música_clássica());
+                    visão_clássica.setMuito_conhecida(peça_musical_clássica.isMuito_conhecida());
+                    peças_musicais_cadastradasComboBox.updateUI();
+                    peças_musicais_cadastradasComboBox.setSelectedItem(visão);
+                } else if (peça_musical instanceof PeçaMusicalPopular && visão instanceof PeçaMusicalPopular) {
+                    PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
+                    PeçaMusicalPopular visão_popular = (PeçaMusicalPopular) visão;
+                    visão_popular.setEstilo_música_popular(peça_musical_popular.getEstilo_música_popular());
+                    visão_popular.setInstrumentação_característica(peça_musical_popular.getInstrumentação_característica());
+                    peças_musicais_cadastradasComboBox.updateUI();
+                    peças_musicais_cadastradasComboBox.setSelectedItem(visão);
+                }
+            } else {
+                informarErro(mensagem_erro);
             }
-        } else {
-            informarErro(mensagem_erro);
         }
     }//GEN-LAST:event_alterarPeçaMusical
 
@@ -418,6 +483,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
     private javax.swing.JButton consultarButton;
     private javax.swing.JLabel duracaoLabel;
     private javax.swing.JTextField duracaoTextField;
+    private javax.swing.JTabbedPane especialização_peça_musicalTabbedPane;
     private javax.swing.JLabel generoLabel;
     private javax.swing.ButtonGroup gêneroButtonGroup;
     private javax.swing.JComboBox gêneroComboBox;

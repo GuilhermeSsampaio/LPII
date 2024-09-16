@@ -1,6 +1,8 @@
-DROP TABLE IF EXISTS Maestros;
-DROP TABLE IF EXISTS PeçasMusicais;
 DROP TABLE IF EXISTS Interpretações;
+DROP TABLE IF EXISTS Maestros;
+DROP TABLE IF EXISTS PeçasMusicaisClássicas;
+DROP TABLE IF EXISTS PeçasMusicaisPopulares;
+DROP TABLE IF EXISTS PeçasMusicais;
 DROP TABLE IF EXISTS Repertórios;
 
 CREATE TABLE Maestros (
@@ -16,6 +18,20 @@ CREATE TABLE PeçasMusicais (
     Genero VARCHAR(50) NOT NULL,
     Duracao INT NOT NULL,
     Tom VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE PeçasMusicaisClássicas(
+    Estilo_música_clássica VARCHAR(50) NOT NULL,
+    Muito_conhecida BOOLEAN NOT NULL,
+    PeçaMusicalId VARCHAR(50) NOT NULL,
+    FOREIGN KEY (PeçaMusicalId) REFERENCES PeçasMusicais(Titulo)
+ );
+
+CREATE TABLE PeçasMusicaisPopulares(
+    Estilo_música_popular VARCHAR(50) NOT NULL,
+    Instrumentação_característica VARCHAR(50) NOT NULL,
+    PeçaMusicalId VARCHAR(50) NOT NULL,
+    FOREIGN KEY (PeçaMusicalId) REFERENCES PeçasMusicais(Titulo)
 );
 
 CREATE TABLE Repertórios (

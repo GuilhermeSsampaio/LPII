@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import entidade.PeçaMusicalClássica.EstiloMúsicaClássica;
+import entidade.PeçaMusicalPopular.EstiloMúsicaPopular;
+import entidade.PeçaMusicalPopular.InstrumentaçãoCaracterística;
 import persistência.BD;
 
 public class PeçaMusical {
@@ -12,7 +15,7 @@ public class PeçaMusical {
         clássico, romântico, jazz, rock, pop, reggae, blues, country, barroco, modernismo, samba
     };
 
-    private String titulo, compositor, tom;
+    String titulo, compositor, tom;
     private int duracao;
     private Gênero genero;
 
@@ -34,9 +37,14 @@ public class PeçaMusical {
     }
 
     public static PeçaMusical buscarPeçaMusical(String titulo) {
-        String sql = "SELECT * FROM PeçasMusicais WHERE titulo = ?";
+        String sql = null;
         ResultSet lista_resultados = null;
+        sql = "SELECT * FROM PeçasMusicais WHERE titulo = ?";
         PeçaMusical peça_musical = null;
+        String compositor = null;
+        int duracao = 0;
+        String tom = null;
+        Gênero genero = null;
 
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -53,9 +61,44 @@ public class PeçaMusical {
             comando.close();
         } catch (Exception exceção) {
             exceção.printStackTrace();
-            peça_musical = null;
         }
-        return peça_musical;
+        if (titulo == null) {
+            return null;
+        }
+        sql = "SELECT Estilo_música_clássica, Muito_conhecida FROM PeçasMusicaisClássicas WHERE PeçaMusicalId = ?";
+        lista_resultados = null;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, titulo);
+            lista_resultados = comando.executeQuery();
+            while (lista_resultados.next()) {
+                return new PeçaMusicalClássica(titulo, compositor, duracao, tom, genero,
+                        EstiloMúsicaClássica.values()[lista_resultados.getInt("Estilo_música_clássica")],
+                        lista_resultados.getBoolean("Muito_conhecida"));
+            }
+            lista_resultados.close();
+            comando.close();
+        } catch (Exception exceção) {
+            exceção.printStackTrace();
+        }
+        sql = "SELECT Estilo_música_popular, Instrumentação_característica FROM PeçasMusicaisPopulares WHERE PeçaMusicalId = ?";
+        lista_resultados = null;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, titulo);
+            lista_resultados = comando.executeQuery();
+            while (lista_resultados.next()) {
+                return new PeçaMusicalPopular(titulo, compositor, duracao, tom, genero,
+                        EstiloMúsicaPopular.values()[lista_resultados.getInt("Estilo_música_popular")],
+                        InstrumentaçãoCaracterística.values()[lista_resultados.getInt("Instrumentação_característica")]);
+
+            }
+            lista_resultados.close();
+            comando.close();
+        } catch (Exception exceção) {
+            exceção.printStackTrace();
+        }
+        return null;
     }
 
     public static String inserirPeçaMusical(PeçaMusical peça_musical) {
@@ -70,12 +113,42 @@ public class PeçaMusical {
             comando.setString(5, peça_musical.getGênero().toString());
             comando.executeUpdate();
             comando.close();
-            return null;
 
         } catch (Exception exceção) {
             exceção.printStackTrace();
             return "Erro na inserção da peça musical no BD";
         }
+
+        if (peça_musical instanceof PeçaMusicalClássica) {
+            PeçaMusicalClássica clássica = (PeçaMusicalClássica) peça_musical;
+            sql = "INSERT INTO PeçasMusicaisClássicas ( Estilo_música_clássica, Muito_conhecida, PeçaMusicalId) VALUES (?, ?, ?)";
+            try {
+                PreparedStatement comando = BD.conexão.prepareStatement(sql);
+                comando.setInt(1, clássica.getEstilo_música_clássica().ordinal());
+                comando.setBoolean(2, clássica.isMuito_conhecida());
+                comando.setString(3, clássica.getTitulo());
+                comando.executeUpdate();
+                comando.close();
+            } catch (Exception exceção) {
+                exceção.printStackTrace();
+                return "Erro na inserção da peça musical clássica no BD";
+            }
+        } else if (peça_musical instanceof PeçaMusicalPopular) {
+            PeçaMusicalPopular popular = (PeçaMusicalPopular) peça_musical;
+            sql = "INSERT INTO PeçasMusicaisPopulares ( Estilo_música_popular, Instrumentação_característica, PeçaMusicalId) VALUES (?, ?, ?)";
+            try {
+                PreparedStatement comando = BD.conexão.prepareStatement(sql);
+                comando.setInt(1, popular.getEstilo_música_popular().ordinal());
+                comando.setInt(2, popular.getInstrumentação_característica().ordinal());
+                comando.setString(3, popular.getTitulo());
+                comando.executeUpdate();
+                comando.close();
+            } catch (Exception exceção) {
+                exceção.printStackTrace();
+                return "Erro na inserção da peça musical popular no BD";
+            }
+        }
+        return null;
     }
 
     public static String alterarPeçaMusical(PeçaMusical peça_musical) {
@@ -90,17 +163,66 @@ public class PeçaMusical {
             comando.setString(5, peça_musical.getTitulo());
             comando.executeUpdate();
             comando.close();
-            return null;
-
         } catch (Exception exceção) {
             exceção.printStackTrace();
             return "Erro na alteração da peça musical no BD";
         }
+        if (peça_musical instanceof PeçaMusicalClássica) {
+            PeçaMusicalClássica clássica = (PeçaMusicalClássica) peça_musical;
+            sql = "UPDATE PeçasMusicaisClássicas SET Estilo_música_clássica = ?, Muito_conhecida = ? WHERE PeçaMusicalId = ?";
+            try {
+                PreparedStatement comando = BD.conexão.prepareStatement(sql);
+                comando.setInt(1, clássica.getEstilo_música_clássica().ordinal());
+                comando.setBoolean(2, clássica.isMuito_conhecida());
+                comando.setString(3, clássica.getTitulo());
+                comando.executeUpdate();
+                comando.close();
+            } catch (Exception exceção) {
+                exceção.printStackTrace();
+                return "Erro na alteração da peça musical clássica no BD";
+            }
+        } else if (peça_musical instanceof PeçaMusicalPopular) {
+            PeçaMusicalPopular popular = (PeçaMusicalPopular) peça_musical;
+            sql = "UPDATE PeçasMusicaisPopulares SET Estilo_música_popular = ?, Instrumentação_característica = ? WHERE PeçaMusicalId = ?";
+            try {
+                PreparedStatement comando = BD.conexão.prepareStatement(sql);
+                comando.setInt(1, popular.getEstilo_música_popular().ordinal());
+                comando.setInt(2, popular.getInstrumentação_característica().ordinal());
+                comando.setString(3, popular.getTitulo());
+                comando.executeUpdate();
+                comando.close();
+            } catch (Exception exceção) {
+                exceção.printStackTrace();
+                return "Erro na alteração da peça musical popular no BD";
+            }
+        }
+        return null;
     }
 
     public static String removerPeçaMusical(String titulo) {
-        String sql = "DELETE FROM PeçasMusicais WHERE titulo = ?";
+        String sql = "DELETE FROM PeçasMusicaisClássicas WHERE PeçaMusicalId = ?";
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, titulo);
+            comando.executeUpdate();
+            comando.close();
+        } catch (Exception exceção) {
+            exceção.printStackTrace();
+            return "Erro na remoção da peça musical clássica no BD";
+        }
 
+        sql = "DELETE FROM PeçasMusicaisPopulares WHERE PeçaMusicalId = ?";
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, titulo);
+            comando.executeUpdate();
+            comando.close();
+        } catch (Exception exceção) {
+            exceção.printStackTrace();
+            return "Erro na remoção da peça musical popular no BD";
+        }
+
+        sql = "DELETE FROM PeçasMusicais WHERE titulo = ?";
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, titulo);
