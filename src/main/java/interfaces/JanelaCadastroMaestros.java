@@ -115,7 +115,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         maestros_cadastradosComboBox = new javax.swing.JComboBox();
         anos_experienciaLabel = new javax.swing.JLabel();
         anos_experienciaTextField = new javax.swing.JTextField();
-        estilo_regenciaLabel = new javax.swing.JLabel();
+        estilo_Label = new javax.swing.JLabel();
         comandosPanel = new javax.swing.JPanel();
         inserirButton = new javax.swing.JButton();
         consultarButton = new javax.swing.JButton();
@@ -138,26 +138,27 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 80, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(22, 78, 0, 0);
         getContentPane().add(nomeLabel, gridBagConstraints);
 
         nomeTextField.setColumns(50);
         nomeTextField.setPreferredSize(new java.awt.Dimension(556, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 196;
         gridBagConstraints.ipady = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 10, 0, 0);
         getContentPane().add(nomeTextField, gridBagConstraints);
 
         maestros_cadastradosLabel.setText("Maestros cadastrados:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipady = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -166,9 +167,9 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
 
         maestros_cadastradosComboBox.setModel(new DefaultComboBoxModel(maestros_cadastrados));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.ipadx = 170;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(75, 6, 0, 0);
@@ -178,32 +179,30 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.ipadx = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 2, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 6, 0, 0);
         getContentPane().add(anos_experienciaLabel, gridBagConstraints);
 
         anos_experienciaTextField.setColumns(50);
         anos_experienciaTextField.setPreferredSize(new java.awt.Dimension(556, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 196;
+        gridBagConstraints.ipadx = 192;
         gridBagConstraints.ipady = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 6, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
         getContentPane().add(anos_experienciaTextField, gridBagConstraints);
 
-        estilo_regenciaLabel.setText("Estilo de regência:");
+        estilo_Label.setText("Estilo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
-        getContentPane().add(estilo_regenciaLabel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(18, 85, 0, 0);
+        getContentPane().add(estilo_Label, gridBagConstraints);
 
         inserirButton.setText("Inserir");
         inserirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +247,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridwidth = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 0, 0, 0);
         getContentPane().add(comandosPanel, gridBagConstraints);
@@ -258,7 +257,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(11, 48, 0, 0);
         getContentPane().add(estrangeiroCheckBox, gridBagConstraints);
@@ -288,12 +287,13 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
         EstilosPanel.add(eleganteRadioButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipady = -2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 4, 0, 8);
+        gridBagConstraints.insets = new java.awt.Insets(12, 4, 0, 8);
         getContentPane().add(EstilosPanel, gridBagConstraints);
 
         pack();
@@ -407,7 +407,7 @@ public class JanelaCadastroMaestros extends javax.swing.JFrame {
     private javax.swing.JRadioButton dinâmicoRadioButton;
     private javax.swing.JRadioButton eleganteRadioButton;
     private javax.swing.ButtonGroup estiloButtonGroup;
-    private javax.swing.JLabel estilo_regenciaLabel;
+    private javax.swing.JLabel estilo_Label;
     private javax.swing.JCheckBox estrangeiroCheckBox;
     private javax.swing.JRadioButton expressivoRadioButton;
     private javax.swing.JButton inserirButton;
