@@ -65,24 +65,10 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         duracaoTextField.setText("");
         gêneroButtonGroup.clearSelection();
         tomTextField.setText("");
+        peça_musical_clássicaPainel.limparCampos();
+        peça_musical_popularPainel.limparCampos();
     }
 
-    // private void selecionarGêneroRadioButton(int índice_gênero) {
-    //     switch (índice_gênero) {
-    //         case 0:
-    //             rockRadioButton.setSelected(true);
-    //             break;
-    //         case 1:
-    //             clássicoRadioButton.setSelected(true);
-    //             break;
-    //         case 2:
-    //             popRadioButton.setSelected(true);
-    //             break;
-    //         case 3:
-    //             sambaRadioButton.setSelected(true);
-    //             break;
-    //     }
-    // }
     private void informarErro(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
     }
@@ -115,12 +101,6 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         } else {
             return null;
         }
-        //)
-        // if (gêneroButtonGroup.getSelection() != null) {
-        //     gênero = Gênero.values()[gêneroButtonGroup.getSelection().getMnemonic()];
-        // } else {
-        //     return null;
-        // }
         String duracao_str = duracaoTextField.getText();
         if (duracao_str.isEmpty()) {
             return null;
@@ -132,8 +112,8 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         }
 
         PeçaMusical peça_musical = null;
-        int índice_especialização = especialização_peça_musicalTabbedPane.getSelectedIndex();
-        switch (índice_especialização) {
+        int índice_aba_selecionada = especialização_peça_musicalTabbedPane.getSelectedIndex();
+        switch (índice_aba_selecionada) {
             case 0:
                 EstiloMúsicaClássica estilo_música_clássica = peça_musical_clássicaPainel.getSelectedEstiloMúsicaClássica();
                 boolean muito_conhecida = peça_musical_clássicaPainel.isMuitoConhecida();
@@ -144,11 +124,8 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 InstrumentaçãoCaracterística instrumentação_característica = peça_musical_popularPainel.getInstrumentaçãoCaracterística();
                 peça_musical = new PeçaMusicalPopular(titulo, compositor, duracao, tom, gênero, estilo_música_popular, instrumentação_característica);
                 break;
-
-            default:
-                break;
         }
-        return new PeçaMusical(titulo, compositor, duracao, tom, gênero);
+        return peça_musical;
     }
 
     private void atualizarComboBox() {
@@ -378,22 +355,29 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         PeçaMusical visão = (PeçaMusical) peças_musicais_cadastradasComboBox.getSelectedItem();
         PeçaMusical peça_musical = null;
         String mensagem_erro = null;
+
         if (visão != null) {
             peça_musical = PeçaMusical.buscarPeçaMusical(visão.getTitulo());
+            System.out.println(peça_musical);
             if (peça_musical == null) {
                 mensagem_erro = "Peça musical não encontrada";
+                informarErro(mensagem_erro); // Informar erro imediatamente se peça não for encontrada
+                return;
             }
         } else {
             mensagem_erro = "Selecione uma peça musical, nenhuma foi selecionada";
+            informarErro(mensagem_erro); // Informar erro imediatamente se nenhum item for selecionado
+            return;
         }
-
         if (mensagem_erro == null) {
+            // Preencher os campos se nenhuma mensagem de erro foi gerada
             tituloTextField.setText(peça_musical.getTitulo());
             compositorTextField.setText(peça_musical.getCompositor());
-            // selecionarGêneroRadioButton(peça_musical.getGênero().ordinal());
             gêneroComboBox.setSelectedItem(peça_musical.getGênero());
             duracaoTextField.setText(Integer.toString(peça_musical.getDuracao()));
             tomTextField.setText(peça_musical.getTom());
+
+            // Verificar o tipo da peça musical e configurar os painéis apropriados
             if (peça_musical instanceof PeçaMusicalClássica) {
                 especialização_peça_musicalTabbedPane.setSelectedIndex(0);
                 PeçaMusicalClássica peça_musical_clássica = (PeçaMusicalClássica) peça_musical;
@@ -404,11 +388,8 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                 PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
                 peça_musical_popularPainel.setEstiloMusicaPopular(peça_musical_popular.getEstilo_música_popular());
                 peça_musical_popularPainel.setInstrumentaçãoCaracterística(peça_musical_popular.getInstrumentação_característica());
-
-            } else {
-                informarErro(mensagem_erro);
             }
-        }
+        }else informarErro(mensagem_erro);
     }//GEN-LAST:event_consultarPeçaMusical
 
     private void alterarPeçaMusical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarPeçaMusical
@@ -432,16 +413,14 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
                     PeçaMusicalClássica visão_clássica = (PeçaMusicalClássica) visão;
                     visão_clássica.setEstilo_música_clássica(peça_musical_clássica.getEstilo_música_clássica());
                     visão_clássica.setMuito_conhecida(peça_musical_clássica.isMuito_conhecida());
-                    peças_musicais_cadastradasComboBox.updateUI();
-                    peças_musicais_cadastradasComboBox.setSelectedItem(visão);
                 } else if (peça_musical instanceof PeçaMusicalPopular && visão instanceof PeçaMusicalPopular) {
                     PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
                     PeçaMusicalPopular visão_popular = (PeçaMusicalPopular) visão;
                     visão_popular.setEstilo_música_popular(peça_musical_popular.getEstilo_música_popular());
                     visão_popular.setInstrumentação_característica(peça_musical_popular.getInstrumentação_característica());
-                    peças_musicais_cadastradasComboBox.updateUI();
-                    peças_musicais_cadastradasComboBox.setSelectedItem(visão);
                 }
+                peças_musicais_cadastradasComboBox.updateUI();
+                peças_musicais_cadastradasComboBox.setSelectedItem(visão);
             } else {
                 informarErro(mensagem_erro);
             }

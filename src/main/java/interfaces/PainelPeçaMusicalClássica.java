@@ -18,8 +18,8 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
     public PainelPeçaMusicalClássica() {
         initComponents();
         limparCampos();
-    }
 
+    }
     public EstiloMúsicaClássica getSelectedEstiloMúsicaClássica() {
         EstiloMúsicaClássica estilo_música_clássica = null;
         if (estilo_música_clássicaButtonGroup.getSelection() != null) {
@@ -35,7 +35,7 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
                 barrocoRadioButton.setSelected(true);
                 break;
             case 1:
-                românticoRadioButton.setSelected(true);
+                rômanticoRadioButton.setSelected(true);
                 break;
             case 2:
                 clássicoRadioButton.setSelected(true);
@@ -59,6 +59,7 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
         muito_conhecidaCheckBox.setSelected(false);
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,35 +71,28 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
 
         estilo_música_clássicaButtonGroup = new javax.swing.ButtonGroup();
         estilo_música_clássicaLabel = new javax.swing.JLabel();
+        muito_conhecidaCheckBox = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         barrocoRadioButton = new javax.swing.JRadioButton();
-        românticoRadioButton = new javax.swing.JRadioButton();
+        rômanticoRadioButton = new javax.swing.JRadioButton();
         clássicoRadioButton = new javax.swing.JRadioButton();
         modernismoRadioButton = new javax.swing.JRadioButton();
-        muito_conhecidaCheckBox = new javax.swing.JCheckBox();
 
-        estilo_música_clássicaLabel.setText("Estilo música clásica:");
+        estilo_música_clássicaLabel.setText("Estilo música clássica:");
+
+        muito_conhecidaCheckBox.setText("Muito conhecida:");
+        muito_conhecidaCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         estilo_música_clássicaButtonGroup.add(barrocoRadioButton);
         barrocoRadioButton.setText("barroco");
 
-        estilo_música_clássicaButtonGroup.add(românticoRadioButton);
-        românticoRadioButton.setMnemonic('\u0001');
-        românticoRadioButton.setText("romântico");
-        românticoRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                românticoRadioButtonActionPerformed(evt);
-            }
-        });
+        estilo_música_clássicaButtonGroup.add(rômanticoRadioButton);
+        rômanticoRadioButton.setMnemonic('\u0001');
+        rômanticoRadioButton.setText("rômantico");
 
         estilo_música_clássicaButtonGroup.add(clássicoRadioButton);
         clássicoRadioButton.setMnemonic('\u0002');
         clássicoRadioButton.setText("clássico");
-        clássicoRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clássicoRadioButtonActionPerformed(evt);
-            }
-        });
 
         estilo_música_clássicaButtonGroup.add(modernismoRadioButton);
         modernismoRadioButton.setMnemonic('\u0003');
@@ -112,7 +106,7 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(barrocoRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(românticoRadioButton)
+                .addComponent(rômanticoRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clássicoRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,47 +118,40 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(barrocoRadioButton)
-                    .addComponent(românticoRadioButton)
+                    .addComponent(rômanticoRadioButton)
                     .addComponent(clássicoRadioButton)
                     .addComponent(modernismoRadioButton))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
-
-        muito_conhecidaCheckBox.setText("Muito conhecida:");
-        muito_conhecidaCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(estilo_música_clássicaLabel)
-                .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(muito_conhecidaCheckBox))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(estilo_música_clássicaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(muito_conhecidaCheckBox)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(estilo_música_clássicaLabel)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addComponent(muito_conhecidaCheckBox))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(estilo_música_clássicaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(muito_conhecidaCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void românticoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_românticoRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_românticoRadioButtonActionPerformed
-
-    private void clássicoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clássicoRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_clássicoRadioButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -175,6 +162,6 @@ public class PainelPeçaMusicalClássica extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton modernismoRadioButton;
     private javax.swing.JCheckBox muito_conhecidaCheckBox;
-    private javax.swing.JRadioButton românticoRadioButton;
+    private javax.swing.JRadioButton rômanticoRadioButton;
     // End of variables declaration//GEN-END:variables
 }

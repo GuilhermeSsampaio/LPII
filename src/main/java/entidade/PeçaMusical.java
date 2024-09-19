@@ -40,7 +40,6 @@ public class PeçaMusical {
         String sql = null;
         ResultSet lista_resultados = null;
         sql = "SELECT * FROM PeçasMusicais WHERE titulo = ?";
-        PeçaMusical peça_musical = null;
         String compositor = null;
         int duracao = 0;
         String tom = null;
@@ -51,12 +50,13 @@ public class PeçaMusical {
             comando.setString(1, titulo);
             lista_resultados = comando.executeQuery();
             while (lista_resultados.next()) {
-                peça_musical = new PeçaMusical(lista_resultados.getString("titulo"),
-                        lista_resultados.getString("compositor"),
-                        lista_resultados.getInt("duracao"),
-                        lista_resultados.getString("tom"),
-                        Gênero.valueOf(lista_resultados.getString("genero")));
+                titulo = lista_resultados.getString("titulo");
+                compositor = lista_resultados.getString("compositor");
+                duracao = lista_resultados.getInt("duracao");
+                tom = lista_resultados.getString("tom");
+                genero = Gênero.valueOf(lista_resultados.getString("genero"));
             }
+
             lista_resultados.close();
             comando.close();
         } catch (Exception exceção) {
@@ -91,7 +91,6 @@ public class PeçaMusical {
                 return new PeçaMusicalPopular(titulo, compositor, duracao, tom, genero,
                         EstiloMúsicaPopular.values()[lista_resultados.getInt("Estilo_música_popular")],
                         InstrumentaçãoCaracterística.values()[lista_resultados.getInt("Instrumentação_característica")]);
-
             }
             lista_resultados.close();
             comando.close();
@@ -120,13 +119,13 @@ public class PeçaMusical {
         }
 
         if (peça_musical instanceof PeçaMusicalClássica) {
-            PeçaMusicalClássica clássica = (PeçaMusicalClássica) peça_musical;
+            PeçaMusicalClássica peça_musical_clássica = (PeçaMusicalClássica) peça_musical;
             sql = "INSERT INTO PeçasMusicaisClássicas ( Estilo_música_clássica, Muito_conhecida, PeçaMusicalId) VALUES (?, ?, ?)";
             try {
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
-                comando.setInt(1, clássica.getEstilo_música_clássica().ordinal());
-                comando.setBoolean(2, clássica.isMuito_conhecida());
-                comando.setString(3, clássica.getTitulo());
+                comando.setInt(1, peça_musical_clássica.getEstilo_música_clássica().ordinal());
+                comando.setBoolean(2, peça_musical_clássica.isMuito_conhecida());
+                comando.setString(3, peça_musical_clássica.getTitulo());
                 comando.executeUpdate();
                 comando.close();
             } catch (Exception exceção) {
@@ -134,13 +133,13 @@ public class PeçaMusical {
                 return "Erro na inserção da peça musical clássica no BD";
             }
         } else if (peça_musical instanceof PeçaMusicalPopular) {
-            PeçaMusicalPopular popular = (PeçaMusicalPopular) peça_musical;
+            PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
             sql = "INSERT INTO PeçasMusicaisPopulares ( Estilo_música_popular, Instrumentação_característica, PeçaMusicalId) VALUES (?, ?, ?)";
             try {
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
-                comando.setInt(1, popular.getEstilo_música_popular().ordinal());
-                comando.setInt(2, popular.getInstrumentação_característica().ordinal());
-                comando.setString(3, popular.getTitulo());
+                comando.setInt(1, peça_musical_popular.getEstilo_música_popular().ordinal());
+                comando.setInt(2, peça_musical_popular.getInstrumentação_característica().ordinal());
+                comando.setString(3, peça_musical_popular.getTitulo());
                 comando.executeUpdate();
                 comando.close();
             } catch (Exception exceção) {
@@ -168,13 +167,13 @@ public class PeçaMusical {
             return "Erro na alteração da peça musical no BD";
         }
         if (peça_musical instanceof PeçaMusicalClássica) {
-            PeçaMusicalClássica clássica = (PeçaMusicalClássica) peça_musical;
+            PeçaMusicalClássica peça_musical_clássica = (PeçaMusicalClássica) peça_musical;
             sql = "UPDATE PeçasMusicaisClássicas SET Estilo_música_clássica = ?, Muito_conhecida = ? WHERE PeçaMusicalId = ?";
             try {
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
-                comando.setInt(1, clássica.getEstilo_música_clássica().ordinal());
-                comando.setBoolean(2, clássica.isMuito_conhecida());
-                comando.setString(3, clássica.getTitulo());
+                comando.setInt(1, peça_musical_clássica.getEstilo_música_clássica().ordinal());
+                comando.setBoolean(2, peça_musical_clássica.isMuito_conhecida());
+                comando.setString(3, peça_musical_clássica.getTitulo());
                 comando.executeUpdate();
                 comando.close();
             } catch (Exception exceção) {
@@ -182,13 +181,13 @@ public class PeçaMusical {
                 return "Erro na alteração da peça musical clássica no BD";
             }
         } else if (peça_musical instanceof PeçaMusicalPopular) {
-            PeçaMusicalPopular popular = (PeçaMusicalPopular) peça_musical;
+            PeçaMusicalPopular peça_musical_popular = (PeçaMusicalPopular) peça_musical;
             sql = "UPDATE PeçasMusicaisPopulares SET Estilo_música_popular = ?, Instrumentação_característica = ? WHERE PeçaMusicalId = ?";
             try {
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
-                comando.setInt(1, popular.getEstilo_música_popular().ordinal());
-                comando.setInt(2, popular.getInstrumentação_característica().ordinal());
-                comando.setString(3, popular.getTitulo());
+                comando.setInt(1, peça_musical_popular.getEstilo_música_popular().ordinal());
+                comando.setInt(2, peça_musical_popular.getInstrumentação_característica().ordinal());
+                comando.setString(3, peça_musical_popular.getTitulo());
                 comando.executeUpdate();
                 comando.close();
             } catch (Exception exceção) {

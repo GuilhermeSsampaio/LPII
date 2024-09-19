@@ -24,13 +24,13 @@ public class PeçaMusicalClássica extends PeçaMusical {
         this.muito_conhecida = muito_conhecida;
     }
 
-    public PeçaMusicalClássica(String titulo, String tom, EstiloMúsicaClássica estilo_música_clássica) {
+    public PeçaMusicalClássica(String titulo, String tom, boolean muito_conhecida) {
         super(titulo, tom);
-        this.estilo_música_clássica = estilo_música_clássica;
+        this.muito_conhecida = muito_conhecida;
     }
 
     public PeçaMusicalClássica getVisão() {
-        return new PeçaMusicalClássica(titulo, tom, estilo_música_clássica);
+        return new PeçaMusicalClássica(titulo, tom, muito_conhecida);
     }
 
     public EstiloMúsicaClássica getEstilo_música_clássica() {
@@ -48,12 +48,13 @@ public class PeçaMusicalClássica extends PeçaMusical {
     public void setMuito_conhecida(boolean muito_conhecida) {
         this.muito_conhecida = muito_conhecida;
     }
-
+    
+    
     public String toString() {
-        String str = "[" + titulo + "]";
-        if (muito_conhecida) {
-            str += " (muito conhecida)";
-        }
+        String str = titulo + "[" + tom + "]";
+        if (muito_conhecida) 
+            str += "- muito conhecida";
+      
         return str;
     }
 }

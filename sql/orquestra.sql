@@ -21,15 +21,15 @@ CREATE TABLE PeçasMusicais (
 );
 
 CREATE TABLE PeçasMusicaisClássicas(
-    Estilo_música_clássica VARCHAR(50) NOT NULL,
+    Estilo_música_clássica int not null,
     Muito_conhecida BOOLEAN NOT NULL,
     PeçaMusicalId VARCHAR(50) NOT NULL,
     FOREIGN KEY (PeçaMusicalId) REFERENCES PeçasMusicais(Titulo)
  );
 
 CREATE TABLE PeçasMusicaisPopulares(
-    Estilo_música_popular VARCHAR(50) NOT NULL,
-    Instrumentação_característica VARCHAR(50) NOT NULL,
+    Estilo_música_popular int not null,
+    Instrumentação_característica int not null,
     PeçaMusicalId VARCHAR(50) NOT NULL,
     FOREIGN KEY (PeçaMusicalId) REFERENCES PeçasMusicais(Titulo)
 );
