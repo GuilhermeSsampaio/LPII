@@ -2,6 +2,7 @@ package entidade;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entidade.PeçaMusicalClássica.EstiloMúsicaClássica;
@@ -59,7 +60,7 @@ public class PeçaMusical {
 
             lista_resultados.close();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
         }
         if (titulo == null) {
@@ -78,7 +79,7 @@ public class PeçaMusical {
             }
             lista_resultados.close();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
         }
         sql = "SELECT Estilo_música_popular, Instrumentação_característica FROM PeçasMusicaisPopulares WHERE PeçaMusicalId = ?";
@@ -94,7 +95,7 @@ public class PeçaMusical {
             }
             lista_resultados.close();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
         }
         return null;
@@ -113,7 +114,7 @@ public class PeçaMusical {
             comando.executeUpdate();
             comando.close();
 
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na inserção da peça musical no BD";
         }
@@ -128,7 +129,7 @@ public class PeçaMusical {
                 comando.setString(3, peça_musical_clássica.getTitulo());
                 comando.executeUpdate();
                 comando.close();
-            } catch (Exception exceção) {
+            } catch (SQLException exceção) {
                 exceção.printStackTrace();
                 return "Erro na inserção da peça musical clássica no BD";
             }
@@ -142,7 +143,7 @@ public class PeçaMusical {
                 comando.setString(3, peça_musical_popular.getTitulo());
                 comando.executeUpdate();
                 comando.close();
-            } catch (Exception exceção) {
+            } catch (SQLException exceção) {
                 exceção.printStackTrace();
                 return "Erro na inserção da peça musical popular no BD";
             }
@@ -162,7 +163,7 @@ public class PeçaMusical {
             comando.setString(5, peça_musical.getTitulo());
             comando.executeUpdate();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na alteração da peça musical no BD";
         }
@@ -176,7 +177,7 @@ public class PeçaMusical {
                 comando.setString(3, peça_musical_clássica.getTitulo());
                 comando.executeUpdate();
                 comando.close();
-            } catch (Exception exceção) {
+            } catch (SQLException exceção) {
                 exceção.printStackTrace();
                 return "Erro na alteração da peça musical clássica no BD";
             }
@@ -190,7 +191,7 @@ public class PeçaMusical {
                 comando.setString(3, peça_musical_popular.getTitulo());
                 comando.executeUpdate();
                 comando.close();
-            } catch (Exception exceção) {
+            } catch (SQLException exceção) {
                 exceção.printStackTrace();
                 return "Erro na alteração da peça musical popular no BD";
             }
@@ -205,7 +206,7 @@ public class PeçaMusical {
             comando.setString(1, titulo);
             comando.executeUpdate();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na remoção da peça musical clássica no BD";
         }
@@ -216,7 +217,7 @@ public class PeçaMusical {
             comando.setString(1, titulo);
             comando.executeUpdate();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na remoção da peça musical popular no BD";
         }
@@ -229,7 +230,7 @@ public class PeçaMusical {
             comando.close();
             return null;
 
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
             return "Erro na remoção da peça musical no BD";
         }
@@ -250,7 +251,7 @@ public class PeçaMusical {
             }
             lista_resultados.close();
             comando.close();
-        } catch (Exception exceção) {
+        } catch (SQLException exceção) {
             exceção.printStackTrace();
         }
         return visões.toArray(new PeçaMusical[visões.size()]);
