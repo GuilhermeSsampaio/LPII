@@ -41,6 +41,7 @@ public class PeçaMusicalPopular extends PeçaMusical {
         return estilo_música_popular;
     }
 
+
     public void setEstilo_música_popular(EstiloMúsicaPopular estilo_música_popular) {
         this.estilo_música_popular = estilo_música_popular;
     }
@@ -52,10 +53,9 @@ public class PeçaMusicalPopular extends PeçaMusical {
     public void setInstrumentação_característica(InstrumentaçãoCaracterística instrumentação_característica) {
         this.instrumentação_característica = instrumentação_característica;
     }
-    
-    
+
+    @Override
     public String toString() {
-        String str = titulo +"[" + tom + "]" + " - " +instrumentação_característica;
-        return str;
+        return "Popular - " + super.toString() + " - "+instrumentação_característica;
     }
 }

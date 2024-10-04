@@ -239,7 +239,7 @@ public class PeçaMusical {
     public static PeçaMusical[] getVisões() {
         String sql = "SELECT titulo, tom FROM PeçasMusicais";
         ResultSet lista_resultados = null;
-        ArrayList<PeçaMusical> visões = new ArrayList();
+        ArrayList<PeçaMusical> visões = new ArrayList<>();
 
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -247,7 +247,8 @@ public class PeçaMusical {
             while (lista_resultados.next()) {
                 String titulo = lista_resultados.getString("titulo");
                 String tom = lista_resultados.getString("tom");
-                visões.add(new PeçaMusical(titulo, tom));
+                PeçaMusical peça = buscarPeçaMusical(titulo);
+                visões.add(peça);
             }
             lista_resultados.close();
             comando.close();
@@ -281,6 +282,7 @@ public class PeçaMusical {
         return genero;
     }
 
+    @Override
     public String toString() {
         return titulo + " [" + tom + "]";
     }

@@ -127,10 +127,40 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         }
         return peça_musical;
     }
-
     private void atualizarComboBox() {
         peças_musicais_cadastradas = PeçaMusical.getVisões();
-        peças_musicais_cadastradasComboBox.setModel(new DefaultComboBoxModel(peças_musicais_cadastradas));
+        DefaultComboBoxModel<PeçaMusicalVisão> model = new DefaultComboBoxModel<>();
+        
+        for (PeçaMusical peça : peças_musicais_cadastradas) {
+            String prefixo = "";
+            if (peça instanceof PeçaMusicalClássica) {
+                prefixo = "Clássica - ";
+            } else if (peça instanceof PeçaMusicalPopular) {
+                prefixo = "Popular - ";
+            }
+            model.addElement(new PeçaMusicalVisão(peça, prefixo + peça.getTitulo() + " [" + peça.getTom() + "]"));
+        }
+        
+        peças_musicais_cadastradasComboBox.setModel(model);
+    }
+
+    private static class PeçaMusicalVisão {
+        private PeçaMusical peçaMusical;
+        private String títuloFormatado;
+
+        public PeçaMusicalVisão(PeçaMusical peçaMusical, String títuloFormatado) {
+            this.peçaMusical = peçaMusical;
+            this.títuloFormatado = títuloFormatado;
+        }
+
+        public PeçaMusical getPeçaMusical() {
+            return peçaMusical;
+        }
+
+        @Override
+        public String toString() {
+            return títuloFormatado;
+        }
     }
 
     /**
@@ -398,7 +428,7 @@ public class JanelaCadastroPeçasMusicais extends javax.swing.JFrame {
         if (peça_musical != null) {
             mensagem_erro = controlador.alterarPeçaMusical(peça_musical);
             //informarSucesso("Peça musical alterada com sucesso");
-            atualizarComboBox();
+            // atualizarComboBox();
         } else {
             mensagem_erro = "Preencha todos os campos";
         }

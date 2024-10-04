@@ -48,13 +48,12 @@ public class PeçaMusicalClássica extends PeçaMusical {
     public void setMuito_conhecida(boolean muito_conhecida) {
         this.muito_conhecida = muito_conhecida;
     }
-    
-    
+
+    @Override
     public String toString() {
-        String str = titulo + "[" + tom + "]";
+        String str = "Clássica - " + super.toString();
         if (muito_conhecida) 
             str += "- muito conhecida";
-      
         return str;
     }
 }
