@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS PeçasMusicaisClássicas;
 DROP TABLE IF EXISTS PeçasMusicaisPopulares;
 DROP TABLE IF EXISTS PeçasMusicais;
 DROP TABLE IF EXISTS Repertórios;
+DROP TABLE IF EXISTS ApresentaçõesMusicais
 
 CREATE TABLE Maestros (
     Nome VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -47,4 +48,9 @@ CREATE TABLE Interpretações (
     PeçaMusicalId VARCHAR(50) NOT NULL,
     FOREIGN KEY (RepertórioId) REFERENCES Repertórios(Sequencial),
     FOREIGN KEY (PeçaMusicalId) REFERENCES PeçasMusicais(Titulo)
+);
+
+CREATE TABLE ApresentaçõesMusicais(
+   Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
 );

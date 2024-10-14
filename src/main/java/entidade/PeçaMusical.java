@@ -247,6 +247,7 @@ public class PeçaMusical {
             while (lista_resultados.next()) {
                 String titulo = lista_resultados.getString("titulo");
                 String tom = lista_resultados.getString("tom");
+                //visões.add(new PeçaMusical(titulo, tom));
                 PeçaMusical peça = buscarPeçaMusical(titulo);
                 visões.add(peça);
             }
@@ -282,7 +283,6 @@ public class PeçaMusical {
         return genero;
     }
 
-    @Override
     public String toString() {
         return titulo + " [" + tom + "]";
     }
