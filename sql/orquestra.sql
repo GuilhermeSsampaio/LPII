@@ -52,5 +52,10 @@ CREATE TABLE Interpretações (
 
 CREATE TABLE ApresentaçõesMusicais(
    Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   DataHora TIMESTAMP NOT NULL,
+   RepertórioId INT NOT NULL,
+   MaestroId VARCHAR(50) ,
+   FOREIGN KEY (RepertórioId) REFERENCES Repertórios(Sequencial),
+   FOREIGN KEY (MaestroId) REFERENCES Maestros(Nome),
 
 );
