@@ -109,7 +109,7 @@ public class Repertório {
     }
 
     public static String alterarRepertório(Repertório repertório) {
-        String sql = "UPTimestamp Repertórios SET nome = ?, data_montagem = ?, descrição = ? WHERE sequencial = ?";
+        String sql = "UPDATE Repertórios SET nome = ?, data_montagem = ?, descrição = ? WHERE sequencial = ?";
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, repertório.getNome());
