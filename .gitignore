@@ -1,0 +1,42 @@
+# Diretório de compilação
+/target/
+/node_modules/
+# Configurações específicas do NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Arquivos específicos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração de IDEs
+/.idea/
+/*.iml
+/*.ipr
+/*.iws
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.vscode
+
+# Arquivos Maven
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/pom.xml.next
+/release.properties
+
+# Arquivos de Log
+*.log
+
+# Arquivos de cache do Maven
+/.mvn/timing.properties
+/.mvn/wrapper/maven-wrapper.jar
+
+# Arquivos temporários
+*.swp
+*.tmp
