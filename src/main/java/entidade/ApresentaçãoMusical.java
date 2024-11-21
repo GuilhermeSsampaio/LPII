@@ -412,9 +412,10 @@ public class ApresentaçãoMusical {
     }
 
     public String toStringFull() {
-        String str = "[" + sequencial + "] Apresentação: \nData: " + formatarDataHora(data.toString()) + " - "
-                + repertório.toStringFull() + " - "
-                + maestro.toStringFull() + " - Nacional: " + (nacional ? "Sim" : "Não") + "\n Peça: ";
+        String str = "[" + sequencial + "] Apresentação: \nData: " + formatarDataHora(data.toString())
+                +" - Nacional: " + (nacional ? "Sim" : "Não") 
+                + " -- "+repertório.toStringFull() 
+                + " - Maestro: "+maestro.toStringFull() + "\n - Peça: ";
         PeçaMusical[] peças_repertório = Interpretação.buscarPeçasRepertório(repertório.getSequencial());
         for (PeçaMusical peça : peças_repertório) {
             str += peça.toStringFull();

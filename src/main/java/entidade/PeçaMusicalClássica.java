@@ -54,6 +54,6 @@ public class PeçaMusicalClássica extends PeçaMusical {
     }
 
     public String toStringFull() {
-        return "Clássica - " + super.toStringFull() + "\nEstilo: " + estilo_música_clássica + "\nMuito conhecida: " + muito_conhecida;
+        return "Clássica - " + super.toStringFull() + "\nMuito conhecida: " + muito_conhecida;
     }
 }

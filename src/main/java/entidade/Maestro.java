@@ -160,6 +160,6 @@ public class Maestro {
     }
 
     public String toStringFull() {
-        return nome + " - " + anos_experiencia + " - " + getEstilo() + " - Estrangeiro: " + getEstrangeiroString();
+        return nome + "[" + anos_experiencia + "] - Estrangeiro: " + getEstrangeiroString();
     }
 }

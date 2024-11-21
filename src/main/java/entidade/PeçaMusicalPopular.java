@@ -58,6 +58,6 @@ public class PeçaMusicalPopular extends PeçaMusical {
     }
 
     public String toStringFull() {
-        return "Popular - " + super.toStringFull() + "\nEstilo: " + estilo_música_popular + "\nInstrumentação: " + instrumentação_característica;
+        return "Popular - " + super.toStringFull() + "\nEstilo: " + estilo_música_popular;
     }
 }

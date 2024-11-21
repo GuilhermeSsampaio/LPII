@@ -288,6 +288,6 @@ public class PeçaMusical {
     }
 
     public String toStringFull() {
-        return "Título: " + titulo + "\nCompositor: " + compositor + "\nDuração: " + duracao + "\nTom: " + tom + "\nGênero: " + genero;
+        return "Título: " + titulo + "["+tom+"] \nDuração: " + duracao;
     }
 }

@@ -247,6 +247,6 @@ public class Repertório {
     }
 
     public String toStringFull() {
-        return "["+sequencial+"] " + nome + " - Data de montagem: " + formatarDataHora(data_montagem.toString()) + "\n - Descrição: " + descrição;
+        return "["+sequencial+"] Nome repertório:" + nome ;
     }
 }
