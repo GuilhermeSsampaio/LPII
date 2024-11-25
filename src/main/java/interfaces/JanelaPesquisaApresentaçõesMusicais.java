@@ -263,8 +263,8 @@ public class JanelaPesquisaApresentaçõesMusicais extends javax.swing.JFrame {
             apresentaçoes_musicais_seleciondasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apresentaçoes_musicais_seleciondasPanelLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(apresentações_musicais_seleciondasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addComponent(apresentações_musicais_seleciondasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         apresentaçoes_musicais_seleciondasPanelLayout.setVerticalGroup(
             apresentaçoes_musicais_seleciondasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +459,7 @@ public class JanelaPesquisaApresentaçõesMusicais extends javax.swing.JFrame {
             duração_mínima_peça_musical,
             todas_peças_repertório
         );
-
+        System.out.println(apresentações);
         mostrarApresentaçõesMusicaisSelecionadas(apresentações);
     }// GEN-LAST:event_pesquisarApresentaçõesMusicais
 
@@ -470,6 +470,7 @@ public class JanelaPesquisaApresentaçõesMusicais extends javax.swing.JFrame {
         filtros_peça_musical_clássica.limparFiltros();
         filtros_peça_musical_popular.limparFiltros();
         nacionalidadApresentaçãoButtonGroup.clearSelection();
+        todas_peças_musicais_repertorioCheckBox.setSelected(false);
     }// GEN-LAST:event_limparFiltros
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

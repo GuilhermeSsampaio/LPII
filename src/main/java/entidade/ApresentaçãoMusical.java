@@ -23,9 +23,10 @@ public class ApresentaçãoMusical {
     private Repertório repertório;
     private Maestro maestro;
     private boolean nacional;
-    
+
     // local
-    public ApresentaçãoMusical(int sequencial, Timestamp data, Repertório repertório, Maestro maestro, boolean nacional) {
+    public ApresentaçãoMusical(int sequencial, Timestamp data, Repertório repertório, Maestro maestro,
+            boolean nacional) {
         this.sequencial = sequencial;
         this.data = data;
         this.repertório = repertório;
@@ -55,11 +56,10 @@ public class ApresentaçãoMusical {
             lista_resultados = comando.executeQuery();
             while (lista_resultados.next()) {
                 visões.add(new ApresentaçãoMusical(
-                    lista_resultados.getInt("Sequencial"),
-                    Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")).getVisão(),
-                    Maestro.buscarMaestro(lista_resultados.getString("MaestroId")).getVisão(),
-                    lista_resultados.getBoolean("Nacional")
-                ));
+                        lista_resultados.getInt("Sequencial"),
+                        Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")).getVisão(),
+                        Maestro.buscarMaestro(lista_resultados.getString("MaestroId")).getVisão(),
+                        lista_resultados.getBoolean("Nacional")));
             }
             lista_resultados.close();
             comando.close();
@@ -184,12 +184,11 @@ public class ApresentaçãoMusical {
             lista_resultados = comando.executeQuery();
             if (lista_resultados.next()) {
                 apresentação_musical = new ApresentaçãoMusical(
-                    sequencial,
-                    lista_resultados.getTimestamp("DataHora"),
-                    Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")),
-                    Maestro.buscarMaestro(lista_resultados.getString("MaestroId")),
-                    lista_resultados.getBoolean("Nacional")
-                );
+                        sequencial,
+                        lista_resultados.getTimestamp("DataHora"),
+                        Repertório.buscarRepertório(lista_resultados.getInt("RepertórioId")),
+                        Maestro.buscarMaestro(lista_resultados.getString("MaestroId")),
+                        lista_resultados.getBoolean("Nacional"));
             }
             lista_resultados.close();
             comando.close();
@@ -254,10 +253,24 @@ public class ApresentaçãoMusical {
                 ApresentaçãoMusical apresentação_pesquisada = ApresentaçãoMusical.buscarApresentaçãoMusical(
                         lista_resultados.getInt(1));
                 int sequencial_repertório = lista_resultados.getInt(3);
-                if (!peçasRepertórioAtendemFiltrosComSubclasses(sequencial_repertório, duração_mínima_peça_musical, todas_peças_repertório, muito_conhecida, estilo_musica_popular)) {
+                String titulo_peça_musical = lista_resultados.getString(6);
+
+                if (!peçasRepertórioAtendemFiltros(sequencial_repertório, duração_mínima_peça_musical,
+                        todas_peças_repertório)) {
                     continue;
                 }
-                apresentações_selecionadas.add(apresentação_pesquisada);
+
+                if (estilo_musica_popular != null) {
+                    if (isOkPesquisaEmPeçasMusicaisPopulares(titulo_peça_musical, estilo_musica_popular)) {
+                        apresentações_selecionadas.add(apresentação_pesquisada);
+                    }
+                } else if (muito_conhecida != 'X') {
+                    if (isOkPesquisaEmPeçasMusicaisClássicas(titulo_peça_musical, muito_conhecida)) {
+                        apresentações_selecionadas.add(apresentação_pesquisada);
+                    }
+                } else {
+                    apresentações_selecionadas.add(apresentação_pesquisada);
+                }
             }
 
             lista_resultados.close();
@@ -318,7 +331,8 @@ public class ApresentaçãoMusical {
         return pesquisa_ok;
     }
 
-    private static boolean peçasRepertórioAtendemFiltrosComSubclasses(int sequencial_repertório, int duração_mínima_peça_musical,
+    private static boolean peçasRepertórioAtendemFiltrosComSubclasses(int sequencial_repertório,
+            int duração_mínima_peça_musical,
             boolean todas_peças_repertório, char muito_conhecida, EstiloMúsicaPopular estilo_musica_popular) {
         PeçaMusical[] peças_repertório = Interpretação.buscarPeçasRepertório(sequencial_repertório);
         int total_peças_não_atendem_filtros = 0;
@@ -347,6 +361,24 @@ public class ApresentaçãoMusical {
         if ((todas_peças_repertório) || (total_peças_não_atendem_filtros == peças_repertório.length))
             return false;
 
+        return true;
+    }
+
+    private static boolean peçasRepertórioAtendemFiltros(int sequencial_repertório, int duração_mínima_peça_musical,
+            boolean todas_peças_repertório) {
+        PeçaMusical[] peças_repertório = Interpretação.buscarPeçasRepertório(sequencial_repertório);
+        int total_peças_não_atendem_filtros = 0;
+        for (PeçaMusical peçaMusical : peças_repertório) {
+            if (duração_mínima_peça_musical > 0 && peçaMusical.getDuracao() < duração_mínima_peça_musical) {
+                total_peças_não_atendem_filtros++;
+                if (todas_peças_repertório)
+                    return false;
+            }
+        }
+        if (total_peças_não_atendem_filtros == 0)
+            return true;
+        if ((todas_peças_repertório) || (total_peças_não_atendem_filtros == peças_repertório.length))
+            return false;
         return true;
     }
 
@@ -408,14 +440,15 @@ public class ApresentaçãoMusical {
     }
 
     public String toString() {
-        return "[" + sequencial + "] Apresentação: " + repertório.getVisão() + " - " + maestro.getVisão() + " - Nacional: " + (nacional ? "Sim" : "Não");
+        return "[" + sequencial + "] Apresentação: " + repertório.getVisão() + " - " + maestro.getVisão()
+                + " - Nacional: " + (nacional ? "Sim" : "Não");
     }
 
     public String toStringFull() {
         String str = "[" + sequencial + "] Apresentação: \nData: " + formatarDataHora(data.toString())
-                +" - Nacional: " + (nacional ? "Sim" : "Não") 
-                + " -- "+repertório.toStringFull() 
-                + " - Maestro: "+maestro.toStringFull() + "\n - Peça: ";
+                + " - Nacional: " + (nacional ? "Sim" : "Não")
+                + " -- " + repertório.toStringFull()
+                + " - Maestro: " + maestro.toStringFull() + "\n - Peça: ";
         PeçaMusical[] peças_repertório = Interpretação.buscarPeçasRepertório(repertório.getSequencial());
         for (PeçaMusical peça : peças_repertório) {
             str += peça.toStringFull();
