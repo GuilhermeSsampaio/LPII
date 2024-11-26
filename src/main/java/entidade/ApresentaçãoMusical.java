@@ -209,7 +209,7 @@ public class ApresentaçãoMusical {
             int duração_mínima_peça_musical,
             boolean todas_peças_repertório) {
 
-        String sql = "SELECT Ap.Sequencial, Ap.DataHora, Ap.RepertórioId, Ap.MaestroId, Ap.Nacional, Interp.PeçaMusicalId"
+        String sql = "SELECT DISTINCT Ap.Sequencial, Ap.DataHora, Ap.RepertórioId, Ap.MaestroId, Ap.Nacional, Interp.PeçaMusicalId"
                 + " FROM Maestros Ma, Repertórios Re, ApresentaçõesMusicais Ap, Interpretações Interp, PeçasMusicais PM"
                 + " WHERE Ap.MaestroId = Ma.Nome AND Ap.RepertórioId = Re.Sequencial AND Re.Sequencial = Interp.RepertórioId"
                 + " AND Interp.PeçaMusicalId = PM.Titulo";
@@ -255,21 +255,25 @@ public class ApresentaçãoMusical {
                 int sequencial_repertório = lista_resultados.getInt(3);
                 String titulo_peça_musical = lista_resultados.getString(6);
 
-                if (!peçasRepertórioAtendemFiltros(sequencial_repertório, duração_mínima_peça_musical,
-                        todas_peças_repertório)) {
+                if (!peçasRepertórioAtendemFiltrosComSubclasses(sequencial_repertório, duração_mínima_peça_musical,
+                        todas_peças_repertório, muito_conhecida, estilo_musica_popular)) {
                     continue;
                 }
 
                 if (estilo_musica_popular != null) {
                     if (isOkPesquisaEmPeçasMusicaisPopulares(titulo_peça_musical, estilo_musica_popular)) {
-                        apresentações_selecionadas.add(apresentação_pesquisada);
+                            apresentações_selecionadas.add(apresentação_pesquisada);
+                        
                     }
                 } else if (muito_conhecida != 'X') {
                     if (isOkPesquisaEmPeçasMusicaisClássicas(titulo_peça_musical, muito_conhecida)) {
-                        apresentações_selecionadas.add(apresentação_pesquisada);
+                            apresentações_selecionadas.add(apresentação_pesquisada);
+                        
                     }
                 } else {
-                    apresentações_selecionadas.add(apresentação_pesquisada);
+                    if (!apresentações_selecionadas.contains(apresentação_pesquisada)) {
+                        apresentações_selecionadas.add(apresentação_pesquisada);
+                    }
                 }
             }
 
@@ -446,7 +450,7 @@ public class ApresentaçãoMusical {
 
     public String toStringFull() {
         String str = "[" + sequencial + "] Apresentação: \nData: " + formatarDataHora(data.toString())
-                + " - Nacional: " + (nacional ? "Sim" : "Não")
+                +  " - " +(isNacional() ? "Nacional" : "Externa") 
                 + " -- " + repertório.toStringFull()
                 + " - Maestro: " + maestro.toStringFull() + "\n - Peça: ";
         PeçaMusical[] peças_repertório = Interpretação.buscarPeçasRepertório(repertório.getSequencial());
